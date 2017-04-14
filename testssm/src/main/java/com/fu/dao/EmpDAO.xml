@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fu.dao.EmpDAO" >
+<!-- 用户映射表 -->
+  <resultMap id="BaseResultMap" type="com.fu.entity.Emp" >
+    <id column="eid" property="eid" jdbcType="INTEGER" />
+    <result column="ename" property="ename" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="VARCHAR" />
+    <result column="sal" property="sal" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="VARCHAR" />
+  </resultMap>
+
+<!-- 点击人数显示具体员工接口 -->
+<select id="findEmp"  resultMap="BaseResultMap" >
+     SELECT e.eid,e.eno,e.ename as ename,e.sex,e.age,e.sal,e.birthday from dept_t d LEFT JOIN emp_t e on d.did=e.eno where e.eno=#{eno} limit #{startPos},#{pageSize} 
+    </select> 
+    <select id="getEmpCount" resultType="long" parameterType="Integer">  
+  SELECT COUNT(1) FROM emp_t  where emp_t.eno=#{eno}
+</select>  
+<!-- 导出excel -->
+<select id="excel"   resultMap="BaseResultMap"  parameterType="Integer">
+           SELECT e.eid,e.eno,e.ename as ename,e.sex,e.age,e.sal,e.birthday from dept_t d LEFT JOIN emp_t e on d.did=e.eno where e.eno=#{eno} 
+    </select>
+   <!-- 通过搜索框模糊查员工-->
+   <select id="findEmpByName"   resultMap="BaseResultMap"  >
+         select e.ename,e.sex,e.age,e.sal,e.birthday from emp_t e where e.eno=#{eno} and e.ename like #{ename} limit #{startPos},#{pageSize} 
+    </select>
+</mapper>

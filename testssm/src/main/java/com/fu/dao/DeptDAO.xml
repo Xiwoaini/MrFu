@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fu.dao.DeptDAO" >
+<!-- 用户映射表 -->
+  <resultMap id="BaseResultMap" type="com.fu.entity.Dept" >
+    <id column="did" property="did" jdbcType="INTEGER" />
+    <result column="dname" property="dname" jdbcType="VARCHAR" />
+    <result column="dnum" property="dnum" jdbcType="VARCHAR" />
+    <result column="ddesc" property="ddesc" jdbcType="INTEGER" />
+  </resultMap>
+  <!-- 查询所有部门 -->
+    <select id="findAll"  resultMap="BaseResultMap" >
+
+select dept_t.did,dept_t.dname,dept_t.ddesc,COUNT(ename) as 'dnum' from dept_t left JOIN emp_t on dept_t.did =emp_t.eno
+GROUP BY dept_t.dname,dept_t.ddesc,dept_t.did  limit #{startPos},#{pageSize} 
+    </select>
+
+    <select id="getDeptCount" resultType="long" >  
+  SELECT COUNT(1) FROM dept_t  
+</select>  
+<!-- 导出excel -->
+<select id="excel"   resultMap="BaseResultMap" >
+           select dept_t.did,dept_t.dname,dept_t.ddesc,count(1) as 'dnum' from emp_t left JOIN dept_t on emp_t.eno=dept_t.did 
+GROUP BY dept_t.dname,dept_t.ddesc,dept_t.did
+    </select>
+    
+    <!-- 添加部门方法 -->
+    <insert id="addDept" >
+    insert into dept_t(dname,ddesc) values(#{dname},#{ddesc});
+    
+    </insert>
+   
+</mapper>

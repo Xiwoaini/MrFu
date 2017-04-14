@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fu.dao.AssetDAO" >
+<!-- 用户映射表 -->
+  <resultMap id="BaseResultMap" type="com.fu.entity.Asset" >
+    <id column="zid" property="zid" jdbcType="INTEGER" />
+    <result column="zname" property="zname" jdbcType="VARCHAR" />
+    <result column="zmoney" property="zmoney" jdbcType="VARCHAR" />
+    <result column="zcompony" property="zcompony" jdbcType="VARCHAR" />
+    <result column="zdate" property="zdate" jdbcType="VARCHAR" />
+  </resultMap>
+  <!-- 查询资产 -->
+  <select id="selectAllAsset" resultMap="BaseResultMap" >
+  select z.zname,z.zmoney,z.zcompony,z.zdate from zichan_z z
+  
+  </select>
+  
+  
+  
+  </mapper>

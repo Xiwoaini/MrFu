@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <web-app xmlns="http://java.sun.com/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                        http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+    version="3.0">
+  <display-name>Archetype Created Web Application</display-name>
+  <welcome-file-list>
+  <welcome-file>login.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <!-- 读取spring核心配置文件 -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:application.xml</param-value>
+  </context-param>
+  <!-- 编码过滤器 -->
+  <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <!-- 异步运行 -->
+    <async-supported>true</async-supported>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter> 	
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <!-- Spring监听器   项目一经启动，会进入contextInitialized方法中，进行Spring的相关配置。
+  并且contextInitialized方法有ServletContext参数，
+  可以在web.xml中配置参数，用来ServletContext读取相关Spring配置文件，
+   一般 Dao, Service 的 Spring 配置都会在 listener 里加载。
+项目退出时激活contextDestroyed方法-->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <!-- 防止Spring内存溢出监听器 -->
+  <listener>
+    <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+  </listener>
+ 
+ 
+  <!-- Spring MVC 核心调度器 -->
+  <servlet>
+    <servlet-name>SpringMVC</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:spring-mvc.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+    <async-supported>true</async-supported>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SpringMVC</servlet-name>
+    <!-- 此处可以可以配置成*.do，对应struts的后缀习惯 -->
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+  
+  
+  <!-- 过滤器   -->
+ <filter>
+		<filter-name>loginFilter</filter-name>
+		<filter-class>com.fu.util.GuoLv</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>loginFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	
+	<!-- 验证码 -->
+	    <servlet>  
+        <servlet-name>AuthImage</servlet-name>  
+        <servlet-class>com.fu.util.AuthImage</servlet-class>  
+        </servlet>  
+        <servlet-mapping>  
+        <servlet-name>AuthImage</servlet-name>  
+        <url-pattern>/authImage</url-pattern>  
+        </servlet-mapping>  
+
+  <!-- 错误跳转页面 -->
+    <error-page>
+        <!-- 路径不正确 -->
+        <error-code>404</error-code>
+        <location>/WEB-INF/errorpage/404.jsp</location>
+    </error-page>
+    <error-page>
+        <!-- 没有访问权限，访问被禁止 -->
+        <error-code>405</error-code>
+        <location>/WEB-INF/errorpage/405.jsp</location>
+    </error-page>
+    <error-page>
+        <!-- 内部错误 -->
+        <error-code>500</error-code>
+        <location>/WEB-INF/errorpage/500.jsp</location>
+    </error-page>
+
+
+ 
+</web-app>

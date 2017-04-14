@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fu.dao.StudentsDAO" >
+
+  <resultMap id="BaseResultMap" type="com.fu.entity.Students" >
+    <id column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="xuehao" property="xuehao" jdbcType="VARCHAR" />
+    <result column="sname" property="sname" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="imgsrc" property="imgsrc" jdbcType="VARCHAR" />
+    <!--之前将图片加到数据库 <result column="stuimg" property="stuimg" jdbcType="BINARY" /> -->
+    
+  </resultMap>
+  <!-- 查询方法,导出excel select * from students_t -->
+   <select id="findAll"   resultMap="BaseResultMap" >
+       select * from students_t 
+    </select>
+   
+    <!-- 增加学生方法 -->
+    <insert id="addStudents" parameterType="com.fu.entity.Students" >
+    		INSERT into students_t(xuehao,sname,sex,imgsrc) values(#{xuehao},#{sname},#{sex},#{imgsrc})
+    </insert>
+    
+    <!-- 更改学生方法 -->
+    <update id="modifyStudents"  parameterType="com.fu.entity.Students">
+    
+    update students_t SET xuehao = #{xuehao},sname = #{sname},sex = #{sex} WHERE sid = #{sid}
+    </update>
+
+     <!-- 删除学生方法 -->
+     <delete id="deleteStudents" parameterType="Integer" >
+     	delete from students_t where sid=#{sid}
+     
+     </delete>
+      <!-- 根据id查询指定学生方法 -->
+      <select id="findStudentsById" parameterType="Integer" resultMap="BaseResultMap">
+      select sid,xuehao,sname,sex,imgsrc from students_t where sid=#{sid}
+      
+      </select>
+<!-- 根据姓名查询指定学生方法 -->
+    <select id="findStudents" parameterType="com.fu.entity.Students" resultMap="BaseResultMap">
+     select sid,xuehao,sname,sex from students_t where sname like #{sname}
+    </select>
+    
+    
+    <!-- 分页 -->
+    <select id="selectStudentsByPage" resultMap="BaseResultMap">  
+  select   
+ sid,xuehao,sname,sex
+  from students_t  limit #{startPos},#{pageSize}   
+</select>  
+ 
+<select id="getStudentsCount" resultType="long" >  
+  SELECT COUNT(1) FROM students_t  
+</select>  
+
+</mapper>
