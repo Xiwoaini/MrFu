@@ -8,6 +8,11 @@
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="age" property="age" jdbcType="INTEGER" />
   </resultMap>
+  
+  <!-- 登录时检查用户名是否存在 -->
+  <select id="loginUsername" resultMap="BaseResultMap" parameterType="String">
+  select * from user_t where username=#{name}
+  </select>
   <!-- 用户登录方法实现 -->
    <select id="login"  resultMap="BaseResultMap" >
             select t.id,t.username,DECODE(t.`password`,'userkey'),t.age from user_t t where username = #{username} and password=ENCODE(#{password},#{userkey})

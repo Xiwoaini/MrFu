@@ -42,6 +42,10 @@ $(function() {
 					var x = document.getElementById("erroring");
 					x.innerHTML = '请稍后登录！';
 				}
+				if(data=="UserNullError"){
+					var x = document.getElementById("erroring");
+					x.innerHTML = '用户名不存在，请先注册！';
+				}
 				if (data == "index") {
 					location.href = "user/loginIndex.do";
 

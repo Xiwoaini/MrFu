@@ -9,6 +9,8 @@ import com.fu.entity.Users;
 
 @Repository
 public interface UsersDAO {
+	//登录时检查用户名是否存在
+	public List<Users> loginUsername(@Param(value="name") String name);
 
 	// 用户登录dao层接口
 	public Users login(@Param(value = "username") String username, @Param(value = "password") String password,

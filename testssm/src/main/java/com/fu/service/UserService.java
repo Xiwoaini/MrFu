@@ -5,7 +5,10 @@ import java.util.List;
 import com.fu.entity.Users;
 
 public interface UserService {
- 
+
+	//登录时检查用户名是否存在
+	public boolean loginUsername(String name);
+	
 //	用户登录业务层接口
 	public Users login(String username,String password,String userkey);
 //	用户注册业务层接口

@@ -102,26 +102,25 @@ public String toIndex(HttpServletRequest request,HttpSession session, HttpServle
 		
 		   return "passwordError";
 	 }
-	 //TODO
-//	 if("".trim().equals(yzm)){
-//		 return "yzmNull";
-//	 }
-//	 else{	
-//		 if(session.getAttribute("verCode").toString().equals(yzm)){
+	 if(userService.loginUsername(username)){
+
+		 String userkey="userkey";
+		 	user=this.userService.login(username,password,userkey);
+		  if(user!=null){
+			  
+		  session.setAttribute("username", user.getUsername());
+		  return "index";
+		  }
+		  else{
+		  	return "error";
+		  }
+	 }
+	 else{
+		 return "UserNullError";
+		 
+	 }
+	 
 		
-			 String userkey="userkey";
-			 	user=this.userService.login(username,password,userkey);
-			  if(user!=null){
-				  
-			  session.setAttribute("username", user.getUsername());
-			  return "index";
-			  }
-			  else{
-			  	return "error";
-			  }
-//		 }
-//		 return "yzmError";
-//	 } 
 	 
  }
  catch(Exception e){
