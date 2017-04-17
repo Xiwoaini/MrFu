@@ -53,65 +53,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()
      <!-- 验证码 -->           
      <label class="input-tips" for="u">验证：</label>
     
-<a href="login.jsp" onclick="javascript:changeImg()" style="color:white;"> 
- <img id="img" src="authImage" style="height:40px" />
+<a href="#" onclick="changeImg()" style="color:white;"> 
+ <img id="imgVcode" src="authImage"  style="height:40px" />
 </a>
          <input type="text" id="yzm" name="yzm" class="inputstyle" />     
     
                 <div style="padding-left:50px;margin-top:10px;">
 <input type="button" id="login" value="登 录" style="width:150px;" class="button_blue"/>
-  <!-- 登录异互脚本 
-    <script>
-                $(function(){
-                    $('#login').click(function(){           
-                         $.ajax({
-                             type: "POST",
-                             url: "user/login.do",
-                             data: {username:$("#username").val(), password:$("#password").val(),yzm:$("#yzm").val()},
-                             dataType:"json",  
-                             error:function(data){  
-                                 alert("出错了！！");  
-                             },  
-                              unction(data){ 
-                            	 if(data=="userError"){
-                             		var x= document.getElementById("erroring");
-                             		x.innerHTML = '该用户已经登录！';
-                           				}
-                            	 if(data=="userNameError"){
-                            		var x= document.getElementById("erroring");
-                            		x.innerHTML = '用户名不能为空！';
-                          				}
-                            	 if(data=="passwordError"){
-                            		 var x= document.getElementById("erroring");
-                             		x.innerHTML = '请输入密码！';
-                            		 }
-                            	 if(data=="yzmNull"){
-                            		 var x= document.getElementById("erroring");
-                             		x.innerHTML = '请输入验证码！';
-                            		 }
-                            	 if(data=="yzmError"){
-                            		 var x= document.getElementById("erroring");
-                             		x.innerHTML = '验证码错误！';
-                            		 }
-                            	 if(data=="error"){ 
-                            		 var x= document.getElementById("erroring");
-                          		x.innerHTML = '用户名或密码不正确！';
-                        		 }
-                            	 if(data=="Error"){ 
-                            		 var x= document.getElementById("erroring");
-                          		x.innerHTML = '请稍后登录！';
-                        		 }
-                            	 if(data=="index"){ 
-                            		 location.href="user/loginIndex.do";
-                            		 
-                            	 }
-                             } 
-                            
-                         });
-                    });
-                });
-                </script>
---> 
+<!-- 触发验证码刷新-->
+ <script type="text/javascript">
+     function changeImg(){
+      var img = document.getElementById("imgVcode");
+      var time = new Date().getTime();//拿到当前时间 
+       	 	img.src = img.src +'?' + time;    	
+    } 
+</script>
+
                 </div>
               </form>
            </div>
@@ -227,14 +184,6 @@ $(function(){
 
 });
 
-</script>
-<!-- 触发验证码刷新-->
- <script type="text/javascript">
-    function changeImg(){
-    
-    	var img = document.getElementById("img"); 
-        img.src = 'authImage';
-    }
 </script>
 
 
