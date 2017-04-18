@@ -51,8 +51,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()
 
 
 <script>
-
- 
 	    $("#add").click(function(){ 	 
 	        // 将表单复制到父画面，在父页面的回调函数里提交表单      
 	   // var popupForm= $(parent.document.body).children("div[id='popupFormDiv']").append($("#popupForm"));  
@@ -62,8 +60,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()
 	        parent.layer.close(index);
 	                
 	        });  
-
-
 
 </script>
 </body>

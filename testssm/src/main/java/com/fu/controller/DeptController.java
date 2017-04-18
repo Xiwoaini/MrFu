@@ -23,7 +23,7 @@ import com.fu.service.EmpService;
 //部门、员工控制
 @Controller
 @RequestMapping(value = "dept")
-public class DeptController {
+public final class DeptController {
 	private DeptService dservice;
 
 	@Resource(name="deptService")

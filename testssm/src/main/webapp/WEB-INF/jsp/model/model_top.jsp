@@ -47,7 +47,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<li><a class="hvr-overline-from-center button2" href="../students/findAll.do">模块一</a></li>
 							<li><a class="hvr-overline-from-center button2" href="../dept/findAll.do">模块二</a></li>
 							<li><a class="hvr-overline-from-center button2" href="../asset/selectAllAsset.do">模块三</a></li>
-							<li><a class="hvr-overline-from-center button2" href="#">未完成</a></li>
+							<li><a class="hvr-overline-from-center button2" href="../kugou/indexKuGou.do">模拟酷狗音乐</a></li>
 							<li ><span style="color:black;">欢迎${username}进入<a href="../user/lgout.do">点击退出</a></span></li>
 						</ul>
 						

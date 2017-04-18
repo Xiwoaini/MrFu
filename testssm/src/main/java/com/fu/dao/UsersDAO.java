@@ -18,7 +18,7 @@ public interface UsersDAO {
 
 	// 用户注册dao层接口
 	public boolean zhuCe(@Param(value = "username") String username, @Param(value = "password") String password,
-			@Param(value = "age") String age,@Param(value = "userkey") String userkey);
+			@Param(value = "age") String age,@Param(value = "userkey") String userkey,@Param(value = "utype") String utype);
 	//用户注册检测用户名是否数据库里已有
 	public List<Users> selectUser(String username);
 }

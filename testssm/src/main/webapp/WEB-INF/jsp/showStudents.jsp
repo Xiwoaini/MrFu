@@ -21,6 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()
 <body>
 
  <h1 style="text-align: center;font-size: 25px">所有信息 </h1>
+ <c:if test="${utype}=='管理员'"><h1>${utype}</h1></c:if>
  <br><br><br>
  <div class="row">
    <div class="col-md-2"></div>
@@ -49,6 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()
     </tr> 
   </thead>
   <tbody>
+ 
 
 		<c:forEach items="${students_list }" var="stu">  
 		<tr>

@@ -9,4 +9,6 @@ public interface AssetDAO {
 
 	//查询
 	public List<Asset> selectAllAsset();
+//	//删除
+//		public boolean deleteAsset();
 }

@@ -35,9 +35,9 @@ public class UserServiceImpl implements UserService {
 
 	//用户注册业务层实现方法
 	@Override
-	public boolean zhuCe(String user,String passwd,String age,String userkey) {
+	public boolean zhuCe(String user,String passwd,String age,String userkey,String utype) {
 		
-		return this.userDao.zhuCe(user, passwd, age,userkey);
+		return this.userDao.zhuCe(user, passwd, age,userkey,utype);
 	}
 
 //	用户注册检测用户名是否数据库里已有
@@ -52,7 +52,6 @@ public class UserServiceImpl implements UserService {
 	public boolean loginUsername(String name) {
 
 		List<Users> l=new ArrayList<Users>();
-		System.out.println(l.isEmpty());
 		l=userDao.loginUsername(name);
 		
 		if(l.size()<=0||l.isEmpty()){

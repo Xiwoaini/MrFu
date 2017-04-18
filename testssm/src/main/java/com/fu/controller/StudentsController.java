@@ -26,7 +26,7 @@ import com.fu.service.StudentsService;
 //学生控制器
 @Controller
 @RequestMapping(value = "/students")
-public class StudentsController {
+public final class StudentsController {
 
 	private Students students=new Students();
 
@@ -105,7 +105,7 @@ public class StudentsController {
 
 		students.setSid(Integer.parseInt(request.getParameter("sid")));
 		sservice.deleteStudents(students.getSid());
-		return "jsp/showStudents";
+		return "jsp/flush";
 
 
 	}

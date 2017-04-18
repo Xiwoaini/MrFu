@@ -7,6 +7,7 @@
     <result column="username" property="username" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="utype" property="utype" jdbcType="VARCHAR" />
   </resultMap>
   
   <!-- 登录时检查用户名是否存在 -->
@@ -15,11 +16,11 @@
   </select>
   <!-- 用户登录方法实现 -->
    <select id="login"  resultMap="BaseResultMap" >
-            select t.id,t.username,DECODE(t.`password`,'userkey'),t.age from user_t t where username = #{username} and password=ENCODE(#{password},#{userkey})
+            select t.id,t.username,DECODE(t.`password`,'userkey'),t.age,t.utype from user_t t where username = #{username} and password=ENCODE(#{password},#{userkey})
     </select>
     <!-- 用户注册方法实现-->
     <insert id="zhuCe" >
-    INSERT INTO user_t (username,password,age) VALUES (#{username},ENCODE(#{password},#{userkey}),#{age})
+    INSERT INTO user_t (username,password,age,utype) VALUES (#{username},ENCODE(#{password},#{userkey}),#{age},#{utype})
     </insert>
     <!-- 检测用户名是否可用 -->
     <select id="selectUser" resultMap="BaseResultMap" parameterType="String" >

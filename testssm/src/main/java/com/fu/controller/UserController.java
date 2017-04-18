@@ -19,7 +19,7 @@ import com.fu.service.UserService;
 @RequestMapping("/user")
 public final class UserController {
 	
-		private Users user;
+		private Users user=new Users();
 
 //注入service
 		
@@ -47,7 +47,8 @@ public final class UserController {
 		   try{
 			   String age=request.getParameter("age");
 			   String userkey="userkey";
-			   this.userService.zhuCe(user, passwd, age,userkey);
+			   this.user.setUtype("普通用户");
+			   this.userService.zhuCe(user, passwd, age,userkey,this.user.getUtype());
 			   return "zhuCeSuccess"; 
 		   }
 		   catch(Exception e){
@@ -107,8 +108,14 @@ public String toIndex(HttpServletRequest request,HttpSession session, HttpServle
 		 String userkey="userkey";
 		 	user=this.userService.login(username,password,userkey);
 		  if(user!=null){
-			  
-		  session.setAttribute("username", user.getUsername());
+			  if(user.getUtype().equals("管理员")){
+				  session.setAttribute("utype", "管理员"); 
+				  session.setAttribute("username", "管理员,"+user.getUsername());  
+			  }
+			  else{
+				  session.setAttribute("username", user.getUsername());
+			  }
+		 
 		  return "index";
 		  }
 		  else{

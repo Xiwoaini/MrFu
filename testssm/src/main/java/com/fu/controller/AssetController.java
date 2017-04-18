@@ -15,9 +15,9 @@ import com.fu.service.AssetService;
 
 //资产控制器
 @Controller
-@RequestMapping(value="asset")
-public class AssetController {
-	private Asset asset;
+@RequestMapping(value="/asset")
+public final class AssetController {
+	private Asset asset=new Asset();
 
 	//注入service
 	private AssetService aservice;

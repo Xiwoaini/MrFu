@@ -27,7 +27,7 @@ import com.fu.service.FileService;
  */
 @Controller
 @RequestMapping("file")
-public class FileController {
+public final class FileController {
 
 	// 注入文件service
 	FileService fservice;
@@ -50,7 +50,9 @@ public class FileController {
 	public String upload(@RequestParam MultipartFile file, HttpServletRequest request) throws IOException {
 		
 		String fname = (String) request.getSession().getAttribute("username");
-
+	
+//		String s1=request.getSession().getServletContext().getRealPath("/upload");
+//		System.out.println(s1); 
 		String fileName = file.getOriginalFilename();
 
 		byte[] b = fileName.getBytes();
@@ -62,7 +64,7 @@ public class FileController {
 
 
 		// String path =
-		//// request.getSession().getServletContext().getRealPath("/upload");
+		
 
 		// String fileName = file.getOriginalFilename();
 

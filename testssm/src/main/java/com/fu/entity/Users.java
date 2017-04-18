@@ -11,7 +11,8 @@ public class Users {
 	private String password;
 	//年龄
 	private String age;
-	
+	//用户类型
+	private String utype;
 	
 	public Integer getId() {
 		return id;
@@ -37,6 +38,12 @@ public class Users {
 	}
 	public void setAge(String age) {
 		this.age = age;
+	}
+	public String getUtype() {
+		return utype;
+	}
+	public void setUtype(String utype) {
+		this.utype = utype;
 	}
 	
 	

@@ -4,7 +4,7 @@
 <!-- 文件映射表 -->
   <resultMap id="BaseResultMap" type="com.fu.entity.File" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="file_f" property="file_f" jdbcType="BINARY" />
+      <result column="file_f" property="file_f" jdbcType="BINARY" />
   </resultMap>
   <!-- 添加文件  -->
   <insert id="addFile">
