@@ -23,19 +23,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()
 
 
 <form id= "uploadForm"  enctype="multipart/form-data">  
-     小兄弟有意见？发文档告诉小弟:  <input type="file" name="file" width="120px">  
+     小兄弟有意见？发文档告诉小弟:  <input type="file" name="file" id="file" width="120px">  
         <input id="upload" type="button" value="上传" class="layui-btn layui-btn-normal">  
     </form> 
-   
+   <img src="http://localhost:8250/uploadfiles/01.jpg" />
     </div>
 <jsp:include page="model/model_footer.jsp"></jsp:include>
 
 
-<!-- 下载脚本 -->
-<script>
+<!-- 上传脚本 -->
+<script type="text/javascript">
 $(function(){
 	$("#upload").click(function(){
-		var formData = new FormData($( "#uploadForm" )[0]);  
+		var formData = new FormData($( "#uploadForm" )[0]);
+		 var file = document.getElementById('file'); 
+		if(file.value == ""){
+		alert('不允许提交空文件');
+		return;
+		}
+		
+		
+		  
 		$.ajax({	
 			 type: 'POST',
 			url:'../file/upload.do',
@@ -52,11 +60,14 @@ $(function(){
 			success:function(data){
 				if(data="upload_success"){
 					alert('我们会尽快处理您的要求');
-					location.href="loginIndex.do";
+					location.reload();
+					return;
 				}
 			if(data="upload_error"){
 				alert('不允许反复提交');
+				return;
 			}
+			
 			}
 			
 		})

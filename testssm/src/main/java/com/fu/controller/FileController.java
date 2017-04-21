@@ -48,39 +48,32 @@ public final class FileController {
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	@ResponseBody
 	public String upload(@RequestParam MultipartFile file, HttpServletRequest request) throws IOException {
-		
+	
 		String fname = (String) request.getSession().getAttribute("username");
 	
 //		String s1=request.getSession().getServletContext().getRealPath("/upload");
-//		System.out.println(s1); 
+		String s2="E:\\upload";
 		String fileName = file.getOriginalFilename();
+	
 
 		byte[] b = fileName.getBytes();
 
 			fservice.addFile(b, fname);
 
-			return "upload_success";
+		 File dir = new File(s2, fileName);
+		 if (!dir.exists()) {
 
-
-
-		// String path =
+		 dir.mkdirs();
+		 }
 		
+		 try {
 
-		// String fileName = file.getOriginalFilename();
-
-		// File dir = new File(path, fileName);
-		// if (!dir.exists()) {
-
-		// dir.mkdirs();
-		// }
-		//
-		// try {
-
-		// file.transferTo(dir);
-		// return "upload_success";
-		// } catch (Exception e) {
-		// return "upload_error";
-		// }
+		 file.transferTo(dir);
+//		 session.setAttribute("uploadFiles","again");
+		 return "upload_success";
+		 } catch (Exception e) {
+		 return "upload_error";
+		 }
 	}
 
 	/**

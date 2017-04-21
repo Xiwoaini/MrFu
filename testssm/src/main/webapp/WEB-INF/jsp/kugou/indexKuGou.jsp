@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <% String path=request.getContextPath(); %>
+   
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,10 +9,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="renderer" content="webkit|ie-stand" /> 
-    <title>酷狗音乐 - 音乐总有新玩法</title>
+    <title>模拟酷狗音乐</title>
     <meta itemprop="images" content="http://static.kgimg.com/public/root/images/logo.png" />
-    <meta name="keywords" content="" />
-    <meta name="description" content="酷狗音乐旗下最新最全的在线正版音乐网站，本站为您免费提供最全的在线音乐试听下载，以及全球海量电台和MV播放服务、最新音乐播放器下载。酷狗音乐 和音乐在一起。" />
     <link href="favicon.ico" rel="shortcut icon">
     <link rel="stylesheet" href="http://static.kgimg.com/public/root/stylesheets/index_44004480f0.css">
     <link rel="alternate" media="only screen and (max-width: 640px)"  href="http://m.kugou.com">
@@ -64,7 +63,7 @@
         <div class="navWrap">
             <div class="nav">
                 <ul class="homeNav">
-                    <li><a class="normal active" href=" http://www.kugou.com/">首页</a></li>
+                    <li><a class="normal active" href="#" onclick="javascript:window.location.reload()">首页</a></li>
                     <li><a class="normal"  href=" http://www.kugou.com/yy/html/rank.html">榜单</a></li>
                     <li><a class="normal"  id="productCenter" href=" http://download.kugou.com/">下载客户端</a></li>
                     <li class="more" id="more"><a href="" class="iconMore" id="showMore" >更多</a>
