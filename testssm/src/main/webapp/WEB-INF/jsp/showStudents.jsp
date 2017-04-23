@@ -21,9 +21,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()
 <body>
 
  <h1 style="text-align: center;font-size: 25px">所有信息 </h1>
- <c:if test="${utype}=='管理员'"><h1>${utype}</h1></c:if>
- <br><br><br>
- <div class="row">
+ 
+<div class="row">
    <div class="col-md-2"></div>
   <div class="col-md-8">
  <div id="popupFormDiv" >
@@ -39,14 +38,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()
     <col width="100">
     <col width="100">
     <col width="100">
-    <col width="100">
+    <c:if test="${utype=='管理员'}"> <col width="100"></c:if>
+    
   </colgroup>
   <thead>
     <tr>
       <th>学号</th>
       <th>姓名</th>
       <th>性别</th>
+      <c:if test="${utype=='管理员'}">
       <th>操作</th>
+      </c:if>
     </tr> 
   </thead>
   <tbody>
@@ -59,7 +61,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()
 			<td><a onclick="update(${stu.sid})" href="#" >${stu.sname}</a></td>
 
 			<td>${stu.sex}</td>
-			<td><button 
+			<c:if test="${utype=='管理员'}">
+			<td>
+			<button 
 			onclick="javascript: return layer.confirm('确定删除吗？', {
 				  btn: ['确定','取消'] 
 		}, function(sid){
@@ -71,6 +75,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()
 
 		});">
 		    <i class="layui-icon" >&#xe640;</i></button></td>
+		    </c:if>
+			
 		</tr>
 		</c:forEach>
   </tbody>
@@ -110,8 +116,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()
         </div>  
         <!-- 分页功能 End -->  
  </div> 
+ 
 
-<button onclick="add()" class="layui-btn layui-btn-small">添加</button>`
+<button onclicadd()" class="layui-btn layui-btn-small">添加</button>`
 </div>
 </div>
 <script >

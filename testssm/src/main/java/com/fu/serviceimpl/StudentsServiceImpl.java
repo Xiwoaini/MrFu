@@ -90,7 +90,7 @@ public class StudentsServiceImpl implements StudentsService {
 //excel导出
 	@Override
 	public HSSFWorkbook export(List<Students> students) {
-		String[] excelHeader = { "Sno", "Name", "Age" };
+		String[] excelHeader = { "", "学号", "姓名", "性别" };
 		HSSFWorkbook wb = new HSSFWorkbook();
 		HSSFSheet sheet = wb.createSheet("Student");
 		HSSFRow row = sheet.createRow((int) 0);
