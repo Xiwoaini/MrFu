@@ -1,6 +1,21 @@
 //登录异互脚本
 $(function() {
 	$('#login').click(function() {
+		var username=$("#username");
+		if((username.val().trim()==null)||(username.val().trim()=="")){
+			var x = document.getElementById("erroring");
+			x.innerHTML = '用户名不能为空！';
+			return;
+		}
+		var password=$("#password");
+		if((password.val().trim()==null)||(password.val().trim()=="")){
+			var x = document.getElementById("erroring");
+			x.innerHTML = '密码不能为空！';
+			return;
+		}
+		
+		
+		
 		$.ajax({
 			type : "POST",
 			url : "user/login.do",
@@ -17,14 +32,6 @@ $(function() {
 				if (data == "userError") {
 					var x = document.getElementById("erroring");
 					x.innerHTML = '该用户已经登录！';
-				}
-				if (data == "userNameError") {
-					var x = document.getElementById("erroring");
-					x.innerHTML = '用户名不能为空！';
-				}
-				if (data == "passwordError") {
-					var x = document.getElementById("erroring");
-					x.innerHTML = '请输入密码！';
 				}
 				if (data == "yzmNull") {
 					var x = document.getElementById("erroring");

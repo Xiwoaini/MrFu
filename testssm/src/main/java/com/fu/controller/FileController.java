@@ -89,7 +89,7 @@ public final class FileController {
 			fileNameV = request.getParameter("background");
 		}
 
-		String fileName = request.getSession().getServletContext().getRealPath("upload") + "/" + fileNameV;
+		String fileName = "E:\\upload" + "/" + fileNameV;
 	
 		InputStream bis = new BufferedInputStream(new FileInputStream(new File(fileName)));
 	

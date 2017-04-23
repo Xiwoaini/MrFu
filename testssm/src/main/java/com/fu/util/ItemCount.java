@@ -23,7 +23,7 @@ public class ItemCount
     {
         ItemCount itemCount = new ItemCount();
         //path的值就是你的项目路径
-        String path = "E:\\testssm\\src";
+        String path = "E:\\git\\testssm\\src";
         itemCount.getItemLineNum(new File(path));
         System.out.println("该项目一共有"+itemCount.getFileCount()+"个java源文件,"+itemCount.getLineCount()+"行代码");
     }

@@ -13,15 +13,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()
 </head>
 
 <body>
-	<form id="popupForm" action="../students/addStudents.do" method="post" enctype="multipart/form-data">
+	<form id="popupForm" name="popupForm" action="../students/addStudents.do" method="post" enctype="multipart/form-data">
 
 	<table border="1">
 
 			<tr>
-			<td>学号:<input type="text" name="xuehao" id="xuehao" /></td>
+			<td>学号:<input type="text" name="xuehao" id="xuehao" />
+			<span id="xuehaoError" style="color: red;"></span>
+			</td>
 			</tr>
 			<tr>
-			<td>姓名:<input type="text" name="sname"  id="sname"/></td>
+			<td>姓名:<input type="text" name="sname"  id="sname"/>
+			<span id="snameError" style="color: red;"></span>
+			</td>
 			</tr>
 			<tr>
 			<td>性别:
@@ -43,24 +47,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()
 	
 		<tr>
 		<td colspan="2">
-		<input id="add"  value="添加" type="submit"/>
+		<input id="add"  value="添加" type="button" onclick="add1()"/>
 		</td>
 		</tr>
 	</table>
 </form>
 
-
-<script>
-	    $("#add").click(function(){ 	 
-	        // 将表单复制到父画面，在父页面的回调函数里提交表单      
-	   // var popupForm= $(parent.document.body).children("div[id='popupFormDiv']").append($("#popupForm"));  
-	      
-	        
-	        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引       
+<!-- 检测学号 -->
+<script type="text/javascript">
+function add1(){
+	var xuehao=$("#xuehao").val();
+	var reg=/^\d{8}$/;
+	if(reg.test(xuehao)!=true){
+		var tmp =document.getElementById("xuehaoError");
+		tmp.innerHTML='学号由8位数字组成!';
+		
+	return;
+	}
+	var sname=$("#sname").val();
+	var regname=/[\u4E00-\u9FA5]/i;
+	if(regname.test(sname)!=true){
+	 var tmp =document.getElementById("snameError");
+		tmp.innerHTML='你是中国人吗?'; 
+	return;
+	}
+	else{
+	document.popupForm.submit();
+	 var index = parent.layer.getFrameIndex(window.name); //获取窗口索引       
 	        parent.layer.close(index);
-	                
-	        });  
+	}
+
+}
 
 </script>
+
 </body>
 </html>

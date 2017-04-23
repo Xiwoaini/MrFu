@@ -40,13 +40,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()
                 <div class="uinArea" id="uinArea">
                 <label class="input-tips" for="u">帐号：</label>
                 <div class="inputOuter" id="uArea">
-<input type="text" id="username"  class="inputstyle"/>
+<input type="text" id="username"  class="inputstyle" maxlength="8" onkeyup="this.value=this.value.replace(/\s+/g,'')" />
                 </div>
                 </div>
                 <div class="pwdArea" id="pwdArea">
                <label class="input-tips" for="p">密码：</label> 
                <div class="inputOuter" id="pArea">
-<input type="password" id="password" class="inputstyle"/> 
+<input type="password" id="password" class="inputstyle"  maxlength="8" onkeyup="this.value=this.value.replace(/\s+/g,'')" /> 
                 </div>
                 </div>
                
@@ -91,7 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()
                 	
                     <label for="user"  class="input-tips2">用户名：</label>
                     <div class="inputOuter2">
-                        <input type="text" id="user" name="user" maxlength="16" class="inputstyle2"/>
+                        <input type="text" id="user" name="user" maxlength="16" class="inputstyle2"  />
                     </div>
                     
                 </li>
@@ -145,7 +145,42 @@ function sj(){
 <!-- 注册脚本 -->
 <script>
 $(function(){
-	$('#zhuCe').click(function(){           
+	$('#zhuCe').click(function(){    
+		var user=$("#user").val().trim();
+		if((user==null)||user==""){
+		var x= document.getElementById("zhuCeErroring");
+            x.innerHTML = '用户名不能为空！';
+            return;
+		}
+		var passwd=$("#passwd").val().trim();
+		if((passwd==null)||passwd==""){
+		var x= document.getElementById("zhuCeErroring");
+            x.innerHTML = '密码不能为空！';
+            return;
+		}
+		var passwd2=$("#passwd2").val().trim();
+		if((passwd2==null)||passwd2==""){
+			var x= document.getElementById("zhuCeErroring");
+            x.innerHTML = '确认密码不能为空！';
+            return;
+		}
+		
+		if(passwd!==passwd2){
+		var x= document.getElementById("zhuCeErroring");
+		 x.innerHTML = '2次密码输入不一样！';
+            return;
+		}
+		
+		
+		
+		var age=$("#age").val().trim();
+		if((age==null)||age==""){
+		var x= document.getElementById("zhuCeErroring");
+            x.innerHTML = '年龄不能为空！';
+            return;
+		}
+	
+	       
         $.ajax({
             type: "GET",
             url: "user/zhuCe.do",
@@ -167,10 +202,6 @@ $(function(){
            	 if(data=="zhuCeError"){
            		var x= document.getElementById("zhuCeErroring");
            		x.innerHTML = '注册失败！';
-         				}
-            if(data=="passwdError"){
-           		var x= document.getElementById("zhuCeErroring");
-           		x.innerHTML = '2次密码不相同！';
          				}
            	 if(data=="zhuCeSuccess"){ 
            		 alert('注册成功，请登录!');

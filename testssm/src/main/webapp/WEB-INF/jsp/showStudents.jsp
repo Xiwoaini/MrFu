@@ -149,7 +149,7 @@ function add(){
 		    shadeClose: true,  
 		    shade: false,  
 		    maxmin: true,  
-		    area: ['280px', '200px'],  
+		    area: ['500px', '400px'],  
 		    content: '<%=path%>/students/add.do',
 		   
 		    end: function(){  

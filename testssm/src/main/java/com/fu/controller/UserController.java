@@ -43,7 +43,7 @@ public final class UserController {
 	   if(l.size()>0){
 			return "UserError";
 		}
-	   if(passwd.equals(passwd2)){
+	 
 		   try{
 			   String age=request.getParameter("age");
 			   String userkey="userkey";
@@ -56,10 +56,6 @@ public final class UserController {
 		   }
 		 
 		   
-	   }
-	   else{
-		   return "passwdError"; 
-	   }
 	   
 	
 	  
@@ -94,15 +90,6 @@ public String toIndex(HttpServletRequest request,HttpSession session, HttpServle
  String yzm=request.getParameter("yzm"); 
 //判断登录文本框是否为空
  try{
-	 if("".trim().equals(username)){
-
-		 return "userNameError";
-			 
-	 }
-	 if("".trim().equals(password)){
-		
-		   return "passwordError";
-	 }
 	 if(userService.loginUsername(username)){
 
 		 String userkey="userkey";
