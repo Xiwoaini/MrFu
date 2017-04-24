@@ -53,5 +53,9 @@
 <select id="getStudentsCount" resultType="long" >  
   SELECT COUNT(1) FROM students_t  
 </select>  
+<select id="getMaleStudents" resultType="INTEGER">
+SELECT count(1) from students_t where students_t.sex='男'
+
+</select>
 
 </mapper>

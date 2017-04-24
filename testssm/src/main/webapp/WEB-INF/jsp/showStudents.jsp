@@ -15,6 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()
 <link href="<%=path %>/layui/css/layui.css" rel="stylesheet" type="text/css"  />
 
 <script type="text/javascript" src="<%=path %>/layui/layui.js"></script>
+<script type="text/javascript" src="<%=path %>/js/echarts.min.js"></script>
 
 </head>
 
@@ -23,8 +24,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()
  <h1 style="text-align: center;font-size: 25px">所有信息 </h1>
  
 <div class="row">
-   <div class="col-md-2"></div>
-  <div class="col-md-8">
+   <div class="col-md-1"></div>
+  <div class="col-md-6">
  <div id="popupFormDiv" >
  <form action="../students/findStudents.do">
  <input name="sname" type="text" />
@@ -35,10 +36,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()
 
 <table class="table table-bordered"  >
   <colgroup>
-    <col width="100">
-    <col width="100">
-    <col width="100">
-    <c:if test="${utype=='管理员'}"> <col width="100"></c:if>
+    <col width="40">
+    <col width="70">
+    <col width="50">
+    <c:if test="${utype=='管理员'}"> <col width="40"></c:if>
     
   </colgroup>
   <thead>
@@ -119,6 +120,56 @@ String basePath = request.getScheme()+"://"+request.getServerName()
  
 
 <button onclicadd()" class="layui-btn layui-btn-small">添加</button>`
+</div>
+<div class="col-md-5">
+<!-- 饼图  -->
+ <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title : {
+        text: '比例',
+        subtext: '比例',
+        x:'center'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        orient: 'vertical',
+        left: 'left',
+        data: ['男','女']
+    },
+    series : [
+        {
+            name: '男女比例',
+            type: 'pie',
+            radius : '55%',
+            center: ['50%', '60%'],
+            data:[
+                {value:${male}, name:'男'},
+                {value:${female}, name:'女'},
+            ],
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+        }
+    ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+
+
 </div>
 </div>
 <script >

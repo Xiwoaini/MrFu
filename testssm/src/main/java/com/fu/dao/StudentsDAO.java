@@ -30,5 +30,7 @@ public interface StudentsDAO {
 			@Param(value = "pageSize") Integer pageSize);
 
 	public long getStudentsCount();
+	
+	public int getMaleStudents();
 
 }

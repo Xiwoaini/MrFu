@@ -43,7 +43,10 @@ public final class StudentsController {
 
 		this.sservice.showStudentsByPage(request, model);
 		List<Students> l = sservice.showStudentsByPage(request, model);
-
+		int tmp1=sservice.getMaleStudents();
+		long tmp2=sservice.getStudentsCount();
+		request.setAttribute("male", tmp1);
+		request.setAttribute("female", ((int)tmp2)-tmp1);
 		session.setAttribute("students_list", l);
 		return "jsp/showStudents";
 	}
@@ -61,7 +64,7 @@ public final class StudentsController {
 		String sname = request.getParameter("sname");
 		sname = "%" + sname + "%";
 		List<Students> l = sservice.findStudents(sname);
-
+		
 		session.setAttribute("students_list", l);
 		return "jsp/showStudents";
 	}
@@ -155,5 +158,7 @@ public final class StudentsController {
 		ouputStream.flush();
 		ouputStream.close();
 	}
+	//总人数
+	
 
 }

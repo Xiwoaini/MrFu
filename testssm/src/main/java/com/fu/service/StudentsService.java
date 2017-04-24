@@ -32,4 +32,8 @@ public interface StudentsService {
 
 	//导出excel
 	public HSSFWorkbook export(List<Students> students);
+	// 查人数比例
+	public int getMaleStudents();
+	//总人数
+	public long getStudentsCount();
 }

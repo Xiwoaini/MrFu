@@ -117,6 +117,19 @@ public class StudentsServiceImpl implements StudentsService {
 		return wb;
 
 	}
+	//查人数比例
+	@Override
+	public int getMaleStudents() {
+		
+		return sdao.getMaleStudents();
+	}
+	//总人数
+	@Override
+	public long getStudentsCount() {
+		
+		return sdao.getStudentsCount();
+	}
+	
 
 
 }
