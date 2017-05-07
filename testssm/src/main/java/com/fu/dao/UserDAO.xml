@@ -16,7 +16,7 @@
   </select>
   <!-- 用户登录方法实现 -->
    <select id="login"  resultMap="BaseResultMap" >
-            select t.id,t.username,DECODE(t.`password`,'userkey'),t.age,t.utype from user_t t where username = #{username} and password=ENCODE(#{password},#{userkey})
+    select t.id,t.username,DECODE(t.`password`,'userkey'),t.age,t.utype from user_t t where username = #{username} and password=ENCODE(#{password},#{userkey})
     </select>
     <!-- 用户注册方法实现-->
     <insert id="zhuCe" >

@@ -3,6 +3,7 @@ package com.fu.util;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpSession;
  * <p><b>AuthImage Description:</b> (验证码)</p>
  * <b>DATE:</b> 2016年6月2日 下午3:53:12
  */
-
+@WebServlet(name="AuthImage",value="/authImage")
 public class AuthImage extends javax.servlet.http.HttpServlet implements javax.servlet.Servlet { 
     static final long serialVersionUID = 1L; 
 

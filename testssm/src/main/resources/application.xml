@@ -10,9 +10,11 @@
  http://www.springframework.org/schema/context/spring-context-3.1.xsd 
  http://www.springframework.org/schema/mvc 
  http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
- <!-- spring核心配置文件 -->
-  <!-- 自动扫描所有源文件 -->
+ 
+
+  <!--组件扫描 -->
   <context:component-scan base-package="com.fu" />
+  
   <!-- 引入数据库配置文件 -->
   <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <property name="location" value="classpath:jdbc.properties" />
@@ -37,7 +39,7 @@
     <property name="maxWait" value="${maxWait}"></property>
   </bean>
  
-  <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
+  <!-- spring和MyBatis整合 -->
   <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
     <property name="dataSource" ref="dataSource" />
     <!-- 自动扫描mapping.xml文件 -->

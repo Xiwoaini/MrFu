@@ -28,6 +28,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()
     </form> 
    <img src="http://localhost:8250/uploadfiles/01.jpg" />
     </div>
+    
+    
+    
+    <br>
+    <input type="text" name="webs" />
 <jsp:include page="model/model_footer.jsp"></jsp:include>
 
 
