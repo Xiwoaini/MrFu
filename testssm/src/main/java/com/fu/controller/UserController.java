@@ -77,21 +77,35 @@ public final class UserController {
 	  return "jsp/index";
   }
 //登录方法
-@RequestMapping("/login")
+@RequestMapping(value="/login")
 @ResponseBody
 public String toIndex(HttpServletRequest request,HttpSession session, HttpServletResponse response){
 	//判断是否已经登录
 	if(session.getAttribute("username")!=null){
-		return "userError";
+		//是否与正在输入的用户名一样
+		 String username=request.getParameter("username");
+		 String uname=request.getSession().getAttribute("username").toString();
+		 if(username.equals(uname)){
+			 return "userError";
+		 }
+		 else{
+			 //重置session
+			 session.invalidate();
+		 }
+		
 	}
 	//接受表单
  String username=request.getParameter("username");
  String password=request.getParameter("password"); 
- String yzm=request.getParameter("yzm"); 
-//判断登录文本框是否为空
+ //登录太费事，先注释掉
+// String yzm=request.getParameter("yzm");
+// if(!yzm.equals(request.getSession().getAttribute("verCode").toString())){
+//	 return "yzmError";
+// }
  try{
+	 //用户名是否存在
 	 if(userService.loginUsername(username)){
-
+		 //设置mysql密匙进行解密
 		 String userkey="userkey";
 		 	user=this.userService.login(username,password,userkey);
 		  if(user!=null){
@@ -99,10 +113,10 @@ public String toIndex(HttpServletRequest request,HttpSession session, HttpServle
 				  session.setAttribute("utype", "管理员"); 
 				  session.setAttribute("username", "管理员,"+user.getUsername());  
 			  }
+			  //普通用户登录
 			  else{
 				  session.setAttribute("username", user.getUsername());
 			  }
-		 
 		  return "index";
 		  }
 		  else{
@@ -113,9 +127,7 @@ public String toIndex(HttpServletRequest request,HttpSession session, HttpServle
 		 return "UserNullError";
 		 
 	 }
-	 
-		
-	 
+
  }
  catch(Exception e){
 	

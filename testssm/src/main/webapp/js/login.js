@@ -19,16 +19,7 @@ $(function() {
 			x.innerHTML = '验证码不能为空！';
 			return;
 		}
-	/*	var t=$("#yzmv");
-		if(yzm.val().trim()!=t){
-			alert(yzm.val());
-			alert(t.val());
-			var x = document.getElementById("erroring");
-			x.innerHTML = '验证码不正确！';
-			
-			return;
-		}*/
-		
+
 		
 		
 		$.ajax({
@@ -39,11 +30,12 @@ $(function() {
 				password : $("#password").val(),
 				yzm : $("#yzm").val()
 			},
-			dataType : "json",
+			 dataType: "json",
 			error : function(data) {
 				alert("出错了！！");
 			},
 			success : function(data) {
+			
 				if (data == "userError") {
 					var x = document.getElementById("erroring");
 					x.innerHTML = '该用户已经登录！';
@@ -64,6 +56,10 @@ $(function() {
 					var x = document.getElementById("erroring");
 					x.innerHTML = '用户名不存在，请先注册！';
 				}
+			/*	if(data=="yzmError"){
+					var x = document.getElementById("erroring");
+					x.innerHTML = '验证码错误！';
+				}*/
 				if (data == "index") {
 					location.href = "user/loginIndex.do";
 

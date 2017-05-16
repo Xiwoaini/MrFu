@@ -41,7 +41,7 @@ public final class StudentsController {
 	@RequestMapping(value = "/findAll", method = RequestMethod.GET)
 	public String findALL(HttpServletRequest request, Model model, HttpSession session) {
 
-		this.sservice.showStudentsByPage(request, model);
+//		this.sservice.showStudentsByPage(request, model);
 		List<Students> l = sservice.showStudentsByPage(request, model);
 		int tmp1=sservice.getMaleStudents();
 		long tmp2=sservice.getStudentsCount();
@@ -159,7 +159,6 @@ public final class StudentsController {
 		ouputStream.flush();
 		ouputStream.close();
 	}
-	//总人数
-	
+	 
 
 }

@@ -186,12 +186,7 @@ function update(sid){
 		    
 		    
 		    	window.location.reload();
-		        // 如果是通过单击关闭按钮关闭弹出层，父画面没有此表单  
-		       // if($("#popupForm").length === 1){  
-		        //	alert('1');
-		        //    $("#popupForm").submit();
-		            
-		      // }  
+		     
 		    }  
 		});  
 	 
