@@ -30,6 +30,8 @@ public interface StudentsService {
 	//通过页数查找学生
 	public List<Students> showStudentsByPage(HttpServletRequest request, Model model);
 
+	//通过输入框查询后的分页
+	public List<Students> showInputStudentsByPage(HttpServletRequest request, Model model);
 	//导出excel
 	public HSSFWorkbook export(List<Students> students);
 	// 查人数比例

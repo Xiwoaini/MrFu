@@ -119,7 +119,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()
  </div> 
  
 
-<button onclicadd()" class="layui-btn layui-btn-small">添加</button>`
+<button onclick="add()" class="layui-btn layui-btn-small">添加</button>`
 </div>
 <div class="col-md-5">
 <!-- 饼图  -->

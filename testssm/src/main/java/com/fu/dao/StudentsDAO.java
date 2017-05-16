@@ -28,7 +28,7 @@ public interface StudentsDAO {
 	// 分页
 	public List<Students> selectStudentsByPage(@Param(value = "startPos") Integer startPos,
 			@Param(value = "pageSize") Integer pageSize);
-
+//取得总数
 	public long getStudentsCount();
 	
 	public int getMaleStudents();

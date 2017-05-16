@@ -30,7 +30,7 @@ public final class UserController {
 	}
 
 //  注册方法
-  @RequestMapping("/zhuCe")
+  @RequestMapping(value="/zhuCe",produces="application/json; charset=utf-8")
   @ResponseBody
   public String zhuCe(HttpServletRequest request,HttpServletResponse response){
 	  //接受表单内容

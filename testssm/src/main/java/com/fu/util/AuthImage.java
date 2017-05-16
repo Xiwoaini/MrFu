@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name="AuthImage",value="/authImage")
 public class AuthImage extends javax.servlet.http.HttpServlet implements javax.servlet.Servlet { 
     static final long serialVersionUID = 1L; 
-
+ 
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
     	response.setHeader("Pragma", "No-cache"); 
         response.setHeader("Cache-Control", "no-cache"); 
@@ -27,8 +27,10 @@ public class AuthImage extends javax.servlet.http.HttpServlet implements javax.s
         
         //存入会话session 
         HttpSession session = request.getSession(true); 
+   
         //删除以前的
         session.removeAttribute("verCode");
+        
         session.setAttribute("verCode", verifyCode.toLowerCase()); 
         //生成图片 
         int w = 100, h = 30; 

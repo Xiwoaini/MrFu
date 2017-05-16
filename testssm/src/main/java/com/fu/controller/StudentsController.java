@@ -23,7 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fu.entity.Students;
 import com.fu.service.StudentsService;
 
-//学生控制器
+//学生控制器alter database app_relation character set utf8
 @Controller
 @RequestMapping(value = "/students")
 public final class StudentsController {
@@ -47,7 +47,7 @@ public final class StudentsController {
 		long tmp2=sservice.getStudentsCount();
 		request.setAttribute("male", tmp1);
 		request.setAttribute("female", ((int)tmp2)-tmp1);
-		session.setAttribute("students_list", l);
+		request.setAttribute("students_list", l);
 		return "jsp/showStudents";
 	}
 
@@ -59,13 +59,14 @@ public final class StudentsController {
 
 	// 查找指定学生
 	@RequestMapping(value = "/findStudents")
-	public String findStudents(HttpSession session, HttpServletRequest request) {
+	public String findStudents(HttpSession session, Model model, HttpServletRequest request) {
+		this.sservice.showStudentsByPage(request, model);
 		// 添加模糊查询,拼接字符串
 		String sname = request.getParameter("sname");
 		sname = "%" + sname + "%";
 		List<Students> l = sservice.findStudents(sname);
 		
-		session.setAttribute("students_list", l);
+		request.setAttribute("students_list", l);
 		return "jsp/showStudents";
 	}
 

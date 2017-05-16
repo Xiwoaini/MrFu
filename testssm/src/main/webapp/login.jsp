@@ -52,12 +52,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()
                
      <!-- 验证码 -->           
      <label class="input-tips" for="u">验证：</label>
-    
-<a href="#" onclick="changeImg()" style="color:white;"> 
- <img id="imgVcode" src="authImage"  style="height:40px" />
+   
+<a href="#" onclick="changeImg()"  style="color:white;"> 
+ <img id="imgVcode"  src="authImage"  style="height:40px" />
 </a>
          <input type="text" id="yzm" name="yzm" class="inputstyle" />     
-    
+	 
+
                 <div style="padding-left:50px;margin-top:10px;">
 <input type="button" id="login" value="登 录" style="width:150px;" class="button_blue"/>
 <!-- 触发验证码刷新-->

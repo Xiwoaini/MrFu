@@ -52,12 +52,14 @@ public final class FileController {
 		String fname = (String) request.getSession().getAttribute("username");
 	
 //		String s1=request.getSession().getServletContext().getRealPath("/upload");
+		//上传的位置
 		String s2="E:\\upload";
+		//得到上传得文件名
 		String fileName = file.getOriginalFilename();
 	
-
+		//转出二进制数组
 		byte[] b = fileName.getBytes();
-
+		
 			fservice.addFile(b, fname);
 
 		 File dir = new File(s2, fileName);
@@ -67,7 +69,7 @@ public final class FileController {
 		 }
 		
 		 try {
-
+		
 		 file.transferTo(dir);
 //		 session.setAttribute("uploadFiles","again");
 		 return "upload_success";
