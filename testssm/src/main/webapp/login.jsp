@@ -13,9 +13,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()
 <script type="text/javascript" src="<%=path %>/images/login.js"></script>
 <link href="<%=path %>/css/login2.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="<%=path %>/easyui/jquery.js"></script>
+<script type="text/javascript" src="<%=path %>/js/jquery.cookie.js"></script>
 <script type="text/javascript" src="<%=path %>/js/login.js"></script>
 </head>
-<body>
+<body onload="sj()">
 <h1>登&nbsp;录&nbsp;模&nbsp;板<sup>FT2017</sup></h1>
 
 <div class="login" style="margin-top:50px;">
@@ -31,38 +32,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()
     <div class="web_qr_login" id="web_qr_login" style="display: block; height: 300px;">    
 
             <!--登录-->
-            <div class="web_login" id="web_login">
-   
-               <div class="login-box">
-			<div class="login_form">
-				<form  id="login_form"  name="loginform"  accept-charset="utf-8" class="loginForm">
-			
-                <div class="uinArea" id="uinArea">
-                <label class="input-tips" for="u">帐号：</label>
-                <div class="inputOuter" id="uArea">
-<input type="text" id="username"  class="inputstyle" maxlength="8" onkeyup="this.value=this.value.replace(/\s+/g,'')" />
-                </div>
-                </div>
-                <div class="pwdArea" id="pwdArea">
-               <label class="input-tips" for="p">密码：</label> 
-               <div class="inputOuter" id="pArea">
-<input type="password" id="password" class="inputstyle"  maxlength="8" onkeyup="this.value=this.value.replace(/\s+/g,'')" /> 
-                </div>
-                </div>
-               
-     <!-- 验证码 -->           
-     <label class="input-tips" for="u">验证：</label>
-   
-<a href="#" onclick="changeImg()"  style="color:white;"> 
- <img id="imgVcode"  src="authImage"  style="height:40px" />
-</a>
-         <input type="text" id="yzm" name="yzm" class="inputstyle" />     
-	 
+			<div class="web_login" id="web_login">
 
-                <div style="padding-left:50px;margin-top:10px;">
-<input type="button" id="login" value="登 录" style="width:150px;" class="button_blue"/>
-<!-- 触发验证码刷新-->
- <script type="text/javascript">
+				<div class="login-box"  >
+					<div class="login_form">
+						<form id="login_form" name="loginform" accept-charset="utf-8"
+							class="loginForm">
+
+							<div class="uinArea" id="uinArea">
+								<label class="input-tips" for="u">帐号：</label>
+								<div class="inputOuter" id="uArea">
+									<input type="text" id="username" class="inputstyle"
+										maxlength="8"
+										onkeyup="this.value=this.value.replace(/\s+/g,'')" />
+								</div>
+							</div>
+							<div class="pwdArea" id="pwdArea">
+								<label class="input-tips" for="p">密码：</label>
+								<div class="inputOuter" id="pArea">
+									<input type="password" id="password" class="inputstyle"
+										maxlength="8"
+										onkeyup="this.value=this.value.replace(/\s+/g,'')" />
+								</div>
+							</div>
+
+							<!-- 验证码 -->
+							<label class="input-tips" for="u">验证：</label> <a href="#"
+								onclick="changeImg()" style="color:white;"> <img
+								id="imgVcode" src="authImage" style="height:40px" />
+							</a> <input type="text" id="yzm" name="yzm" class="inputstyle" />
+								<input type="checkbox" id="rePwd" />记住密码
+
+							<div style="padding-left:50px;margin-top:10px;">
+								<input type="button" id="login" value="登 录" style="width:150px;"
+									class="button_blue" />
+								<!-- 触发验证码刷新-->
+								<script type="text/javascript">
      function changeImg(){
       var img = document.getElementById("imgVcode");
       var time = new Date().getTime();//拿到当前时间 
@@ -70,15 +75,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()
     } 
 </script>
 
-                </div>
-              </form>
-           </div>
-         <p id="erroring" style="color: red"></p>
-            	</div>
-               
-            </div>
-            <!--登录end-->
-  </div>
+							</div>
+						</form>
+					</div>
+					<p id="erroring" style="color: red"></p>
+				</div>
+
+			</div>
+			<!--登录end-->
+		</div>
 
   <!--注册-->
     <div class="qlogin" id="qlogin" style="display: none; ">
@@ -124,7 +129,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()
                 <li>
                     <div class="inputArea">
     <input type="button" id="zhuCe"  style="margin-top:10px;margin-left:85px;" class="button_blue" value="同意协议并注册" />
-                   <a onclick="sj()" href="#" class="zcxy" target="_blank">注册协议</a>
+                   <a  href="#" class="zcxy" target="_blank">注册协议</a>
                     </div>
                     
                 </li><div class="cl"></div>
@@ -137,84 +142,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()
 </div>
 <div class="jianyi">*推荐使用ie8或以上版本ie浏览器或Chrome内核浏览器访问本站</div>
 
-<script>
-function sj(){
-	alert('自己做的能有什么协议');
-}
-
-</script>
 <!-- 注册脚本 -->
-<script>
-$(function(){
-	$('#zhuCe').click(function(){    
-		var user=$("#user").val().trim();
-		if((user==null)||user==""){
-		var x= document.getElementById("zhuCeErroring");
-            x.innerHTML = '用户名不能为空！';
-            return;
-		}
-		var passwd=$("#passwd").val().trim();
-		if((passwd==null)||passwd==""){
-		var x= document.getElementById("zhuCeErroring");
-            x.innerHTML = '密码不能为空！';
-            return;
-		}
-		var passwd2=$("#passwd2").val().trim();
-		if((passwd2==null)||passwd2==""){
-			var x= document.getElementById("zhuCeErroring");
-            x.innerHTML = '确认密码不能为空！';
-            return;
-		}
+<script src="<%=path %>/js/zhuce.js"></script>
+<!-- cookie -->
+<script type="text/javascript">
+function sj() {
+	 
+	if(($.cookie('username')!=null) &&($.cookie('password')!=null)) {
+		$("#rePwd").attr("checked", true);
+		$("#username").val($.cookie('username'));
+		$("#password").val($.cookie('password'));
 		
-		if(passwd!==passwd2){
-		var x= document.getElementById("zhuCeErroring");
-		 x.innerHTML = '2次密码输入不一样！';
-            return;
-		}
-		
-		
-		
-		var age=$("#age").val().trim();
-		if((age==null)||age==""){
-		var x= document.getElementById("zhuCeErroring");
-            x.innerHTML = '年龄不能为空！';
-            return;
-		}
-	
-	       
-        $.ajax({
-            type: "GET",
-            url: "user/zhuCe.do",
-            data: {user:$("#user").val(), passwd:$("#passwd").val()
-            	, passwd2:$("#passwd2").val()	
-            , age:$("#age").val()
-            },
-            dataType:"json",  
-            error:function(data){  
-                alert("注册出错！！:");  
-            },  
-            success:function(data){ 
-            	if(data=="UserError"){
-            		var x= document.getElementById("zhuCeErroring");
-               		x.innerHTML = '用户名已被占用！';
-            	}
-            	
-            	
-           	 if(data=="zhuCeError"){
-           		var x= document.getElementById("zhuCeErroring");
-           		x.innerHTML = '注册失败！';
-         				}
-           	 if(data=="zhuCeSuccess"){ 
-           		 alert('注册成功，请登录!');
-           		 location.href="login.jsp";
-           		 
-           	 }
-            } 
-           
-        });
-   });
 
-});
+	}
+}
 
 </script>
 

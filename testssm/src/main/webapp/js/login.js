@@ -56,11 +56,19 @@ $(function() {
 					var x = document.getElementById("erroring");
 					x.innerHTML = '用户名不存在，请先注册！';
 				}
-			/*	if(data=="yzmError"){
-					var x = document.getElementById("erroring");
-					x.innerHTML = '验证码错误！';
-				}*/
+		
 				if (data == "index") {
+					if(document.getElementById("rePwd").checked) {
+						//如果点了记住，存入cookie
+						$.cookie('username',$("#username").val(),{ expires:7 });
+						$.cookie('password',$("#password").val(),{ expires:7 });
+					
+					}
+					else{
+						$.cookie('username', '', { expires: -1 })
+						$.cookie('password', '', { expires: -1 })
+						
+					}
 					location.href = "user/loginIndex.do";
 
 				}
