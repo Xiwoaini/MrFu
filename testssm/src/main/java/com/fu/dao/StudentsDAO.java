@@ -20,7 +20,9 @@ public interface StudentsDAO {
 	public boolean modifyStudents(Students stu);
 
 	// 根据名字模糊查询
-	public List<Students> findStudents(String sname);
+	public List<Students> findStudents(@Param(value = "sname") String sname,
+			@Param(value = "startPos") Integer startPos,
+			@Param(value = "pageSize") Integer pageSize);
 
 	// 根据id查询指定学生方法(点点击某个学生查看或编译时)
 	public Students findStudentsById(Integer sid);
@@ -30,7 +32,8 @@ public interface StudentsDAO {
 			@Param(value = "pageSize") Integer pageSize);
 //取得总数
 	public long getStudentsCount();
-	
+	//取得模糊查询总数
+	public long getStudentsCountLike(@Param(value="sname") String sname);
 	public int getMaleStudents();
 
 }

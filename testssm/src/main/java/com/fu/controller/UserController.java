@@ -7,11 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fu.entity.Users;
+import com.fu.service.AOPService;
 import com.fu.service.UserService;
 
 //用户控制类
@@ -20,6 +22,7 @@ import com.fu.service.UserService;
 public final class UserController {
 	
 		private Users user=new Users();
+		
 
 //注入service
 		
@@ -139,7 +142,9 @@ public String toIndex(HttpServletRequest request,HttpSession session, HttpServle
 //登陆成功
 @RequestMapping(value="/loginIndex")
 public String loginIndex(HttpServletRequest request, HttpServletResponse response){ 
-	  return "jsp/index";
+
+
+	return "jsp/index";
 }
 
 }

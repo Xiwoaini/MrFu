@@ -21,7 +21,7 @@ public interface StudentsService {
 	public boolean modifyStudents(Students stu);
 
 	// 业务层模糊查询学生接口
-	public List<Students> findStudents(String sname);
+	public String findStudents(HttpServletRequest request,Model model,String sname);
 
 	
 //	 根据id查询指定学生方法(点点击某个学生查看或编辑时)

@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.fu.controller.JiaFa;
 import com.fu.controller.SuanFa;
 
 public class testAOP {
@@ -14,9 +15,10 @@ public class testAOP {
  
 		ApplicationContext actx=new ClassPathXmlApplicationContext("application.xml");
 		SuanFa jia=(SuanFa)actx.getBean("jiaFa");
-		SuanFa jian=(SuanFa)actx.getBean("jianFa");
+//		SuanFa jian=(SuanFa)actx.getBean("jianFa");
+//		SuanFa jia=new JiaFa();
 	    System.out.println(jia.SuanFa(3, 1));
-        System.out.println(jian.SuanFa(3, 1));
+//        System.out.println(jian.SuanFa(3, 1));
          
 	}
 }

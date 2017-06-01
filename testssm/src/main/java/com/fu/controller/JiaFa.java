@@ -1,7 +1,7 @@
 package com.fu.controller;
 
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+
+
 
 
 
@@ -12,5 +12,6 @@ public class JiaFa implements SuanFa {
 		 
 		return (a+b);
 	}
+
 
 }

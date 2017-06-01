@@ -18,6 +18,7 @@ import com.fu.dao.StudentsDAO;
 import com.fu.entity.Students;
 import com.fu.fenye.Page;
 import com.fu.service.StudentsService;
+import com.google.gson.Gson;
 
 @Service("studentsService")
 public class StudentsServiceImpl implements StudentsService {
@@ -48,9 +49,27 @@ public class StudentsServiceImpl implements StudentsService {
 	}
 	//根据名字模糊查询
 	@Override
-	public List<Students> findStudents(String sname) {
+	public String findStudents(HttpServletRequest request,Model model,String sname) {
+		String pageNow = request.getParameter("pageNow");
 
-		return sdao.findStudents(sname);
+		Page page = null;
+
+		List<Students> stu = new ArrayList<Students>();
+//取得总的记录数
+		int totalCount = (int) sdao.getStudentsCountLike(sname);
+
+		if (pageNow != null) {
+			page = new Page(totalCount, Integer.parseInt(pageNow));
+			stu = this.sdao.findStudents(sname,page.getStartPos(), page.getPageSize());
+		} else {
+			page = new Page(totalCount, 1);
+			stu = this.sdao.findStudents(sname,page.getStartPos(), page.getPageSize());
+		}
+
+		Gson gson=new Gson();
+ 
+		request.setAttribute("page",page);
+		return gson.toJson(stu);
 	}
 //	 根据id查询指定学生方法(点点击某个学生查看或编译时)
 	@Override
@@ -84,7 +103,8 @@ public class StudentsServiceImpl implements StudentsService {
 		}
 
 		model.addAttribute("stu", stu);
-		model.addAttribute("page", page);
+	
+		request.setAttribute("page", page);
 		return stu;
 	}
 //excel导出

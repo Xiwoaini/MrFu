@@ -27,14 +27,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()
    <div class="col-md-1"></div>
   <div class="col-md-6">
  <div id="popupFormDiv" >
- <form action="../students/findStudents.do">
- <input name="sname" type="text" />
 
-<input value="查询" type="submit" class="layui-btn layui-btn-warm layui-btn-small" />
-</form>
+ <input id="sname" name="sname" type="text" />
+<input value="查询" onclick="javascript:void(0)" type="button" id="cx" class="layui-btn layui-btn-warm layui-btn-small" />
 <button onclick="dc()" class="layui-btn layui-btn-warm layui-btn-small">导出excel</button>
 
-<table class="table table-bordered"  >
+<table class="table table-bordered" id="mytb"  >
   <colgroup>
     <col width="40">
     <col width="70">
@@ -52,11 +50,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()
       </c:if>
     </tr> 
   </thead>
-  <tbody>
+  <tbody id="mytbtr">
  
 
-		<c:forEach items="${students_list }" var="stu">  
-		<tr>
+		<c:forEach items="${stu }" var="stu">  
+		<tr >
 			<td hidden>${stu.sid}</td>
 			<td>${stu.xuehao}</td>
 			<td><a onclick="update(${stu.sid})" href="#" >${stu.sname}</a></td>
@@ -64,17 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()
 			<td>${stu.sex}</td>
 			<c:if test="${utype=='管理员'}">
 			<td>
-			<button 
-			onclick="javascript: return layer.confirm('确定删除吗？', {
-				  btn: ['确定','取消'] 
-		}, function(sid){
-		layer.msg('成功', {icon: 1},
-			  function(){
-		location.href='../students/deleteStudents.do?sid='+${stu.sid}
-		}
-		);
-
-		});">
+			<button onclick="deleteStudents(${stu.sid})">
 		    <i class="layui-icon" >&#xe640;</i></button></td>
 		    </c:if>
 			
@@ -83,9 +71,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()
   </tbody>
   
 </table>  
-     <!-- 分页功能 start -->  
-        <div align="center">  
-            <font size="2">共 ${page.totalPageCount} 页</font> <font size="2">第  
+   <!-- 分页功能 start -->  
+   <div id="fenYeDiv" align="center">  
+             <font size="2">共 ${page.totalPageCount} 页</font> <font size="2">第  
                 ${page.pageNow} 页</font> <a href="../students/findAll.do">首页</a>  
             <c:choose>  
                 <c:when test="${page.pageNow - 1 > 0}">  
@@ -113,9 +101,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()
                 <c:otherwise>  
                     <a href="../students/findAll.do?pageNow=${page.totalPageCount}">尾页</a>  
                 </c:otherwise>  
-            </c:choose>  
-        </div>  
+            </c:choose>   
+
+
+        </div> 
         <!-- 分页功能 End -->  
+       
  </div> 
  
 
@@ -208,17 +199,42 @@ function add(){
 		    end: function(){  
 		    	
 		    	window.location.reload();
-		        // 如果是通过单击关闭按钮关闭弹出层，父画面没有此表单  
-		       // if($("#popupForm").length === 1){ 
-		        //	<!---->
-		        	//	var formData = new FormData($( "#popupForm" )[0]);  
-		     //  	data : formData;
-		        	//  $("#popupForm").submit();  
-		        	  //	 }  
 		        	 }  
 		});  
 	 
 }
+
+
+</script>
+
+<!-- 查询异步交互 -->
+<script type="text/javascript">
+$(function() {
+	$('#cx').click(function() {
+	if(($("#sname").val()=="")||($("#sname").val()==null)){
+		return ;
+	}
+	  $.get("../students/findStudents.do",{sname:$("#sname").val()}, function(result){
+			var jsonArray = $.parseJSON(result);
+				var html = "";
+				for (var temp in jsonArray) {
+					html += '<tr ><td hidden>'+jsonArray[temp].sid+'</td>';
+					html += '<td>' + jsonArray[temp].xuehao + '</td><td>' + jsonArray[temp].sname + '</td><td>' + jsonArray[temp].sex + '</td>' ;
+					  <c:if test="${utype=='管理员'}">
+					html += '<td ><button onclick="deleteStudents(\''+jsonArray[temp].sid+'\')">  <i class="layui-icon" >&#xe640;</i></button></td>';
+					</c:if>
+					html+='</tr>';
+				}
+				alert( ${page.totalCount});
+				document.getElementById("mytbtr").innerHTML = html;
+				
+  			
+  },"json");
+
+	
+	});
+
+});
 
 
 </script>
@@ -231,6 +247,24 @@ function dc(){
 
 </script>
 
-<jsp:include page="model/model_footer.jsp"></jsp:include>
+<script type="text/javascript">
+function deleteStudents(sid){
+return layer.confirm('确定删除吗？', {
+				  btn: ['确定','取消'] 
+		}, function(){
+		layer.msg('成功', {icon: 1},
+			  function(){
+		location.href='../students/deleteStudents.do?sid='+sid;
+	
+		}
+		);
+
+		})
+}
+
+</script>
+
+
+  <jsp:include page="model/model_footer.jsp"></jsp:include>
 </body>
 </html>

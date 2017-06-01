@@ -18,10 +18,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fu.entity.Students;
 import com.fu.service.StudentsService;
+import com.google.gson.Gson;
 
 //学生控制器alter database app_relation character set utf8
 @Controller
@@ -41,15 +43,17 @@ public final class StudentsController {
 	@RequestMapping(value = "/findAll", method = RequestMethod.GET)
 	public String findALL(HttpServletRequest request, Model model, HttpSession session) {
 
-//		this.sservice.showStudentsByPage(request, model);
 		List<Students> l = sservice.showStudentsByPage(request, model);
+
 		int tmp1=sservice.getMaleStudents();
 		long tmp2=sservice.getStudentsCount();
 		request.setAttribute("male", tmp1);
 		request.setAttribute("female", ((int)tmp2)-tmp1);
+
 		request.setAttribute("students_list", l);
 		return "jsp/showStudents";
 	}
+
 
 	// 增加学生，跳转到指定页面
 	@RequestMapping(value = "/add")
@@ -58,16 +62,22 @@ public final class StudentsController {
 	}
 
 	// 查找指定学生
-	@RequestMapping(value = "/findStudents")
-	public String findStudents(HttpSession session, Model model, HttpServletRequest request) {
-		this.sservice.showStudentsByPage(request, model);
+	@RequestMapping(value = "/findStudents",produces="application/json")
+	@ResponseBody
+	public String findStudents(Model model, HttpServletRequest request,HttpSession session) {
 		// 添加模糊查询,拼接字符串
 		String sname = request.getParameter("sname");
-		sname = "%" + sname + "%";
-		List<Students> l = sservice.findStudents(sname);
+		String json="";
+		if("".equals(sname)){
+			findALL(request,model,session);
+	
+		}else{
+			sname = "%" + sname + "%";
+			json=sservice.findStudents(request,model,sname);
+			
+		}
+		return json;
 		
-		request.setAttribute("students_list", l);
-		return "jsp/showStudents";
 	}
 
 	// 真正增加学生方法
@@ -77,7 +87,6 @@ public final class StudentsController {
 		students.setXuehao(request.getParameter("xuehao"));
        students.setSname(request.getParameter("sname"));
 		students.setSex(request.getParameter("sex"));  
-		// 得到上传的文件
 		
 			// 获取要接受上传文件的地址
 			String path = request.getSession().getServletContext().getRealPath("/ImgSrc/");
@@ -105,11 +114,11 @@ public final class StudentsController {
 
 	// 删除学生方法
 	@RequestMapping(value = "/deleteStudents")
-	public String deleteStudents(HttpServletRequest request) {
+	public String deleteStudents(HttpServletRequest request, Model model, HttpSession session) {
 
 		students.setSid(Integer.parseInt(request.getParameter("sid")));
 		sservice.deleteStudents(students.getSid());
-		return "jsp/flush";
+		return findALL(request,model,session);
 
 
 	}
@@ -159,6 +168,5 @@ public final class StudentsController {
 		ouputStream.flush();
 		ouputStream.close();
 	}
-	 
 
 }

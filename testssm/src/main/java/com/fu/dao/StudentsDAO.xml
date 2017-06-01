@@ -38,8 +38,10 @@
       
       </select>
 <!-- 根据姓名查询指定学生方法 -->
-    <select id="findStudents" parameterType="com.fu.entity.Students" resultMap="BaseResultMap">
-     select sid,xuehao,sname,sex from students_t where sname like #{sname}
+    <select id="findStudents"  resultMap="BaseResultMap">
+select   
+ sid,xuehao,sname,sex
+  from students_t  where sname like #{sname} limit #{startPos},#{pageSize}      
     </select>
     
     
@@ -53,6 +55,10 @@
 <select id="getStudentsCount" resultType="long" >  
   SELECT COUNT(1) FROM students_t  
 </select>  
+
+<select id="getStudentsCountLike" resultType="java.lang.Long" parameterType="java.lang.String">  
+  SELECT COUNT(1) FROM students_t  where sname like #{sname}
+</select> 
 <select id="getMaleStudents" resultType="INTEGER">
 SELECT count(1) from students_t where students_t.sex='男'
 

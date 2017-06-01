@@ -11,7 +11,6 @@ import java.net.URLEncoder;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fu.service.FileService;
 
 /**
- * 上传下载功能
+ * 上传下载类
+ * 
  */
 @Controller
 @RequestMapping("file")
@@ -48,16 +48,16 @@ public final class FileController {
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	@ResponseBody
 	public String upload(@RequestParam MultipartFile file, HttpServletRequest request) throws IOException {
-	
+	//上传者的名字信息
 		String fname = (String) request.getSession().getAttribute("username");
-	
+	//上传的位置在项目的路径下
 //		String s1=request.getSession().getServletContext().getRealPath("/upload");
 		//上传的位置
 		String s2="E:\\upload";
 		//得到上传得文件名
 		String fileName = file.getOriginalFilename();
 	
-		//转出二进制数组
+		//转成二进制数组
 		byte[] b = fileName.getBytes();
 		
 			fservice.addFile(b, fname);
@@ -69,7 +69,7 @@ public final class FileController {
 		 }
 		
 		 try {
-		
+		//保存
 		 file.transferTo(dir);
 //		 session.setAttribute("uploadFiles","again");
 		 return "upload_success";
@@ -90,9 +90,9 @@ public final class FileController {
 		} else {
 			fileNameV = request.getParameter("background");
 		}
-
+//指定要下载的文件
 		String fileName = "E:\\upload" + "/" + fileNameV;
-	
+ //输入流，将本地磁盘的文件读到内存
 		InputStream bis = new BufferedInputStream(new FileInputStream(new File(fileName)));
 	
 		String filename = fileNameV;
