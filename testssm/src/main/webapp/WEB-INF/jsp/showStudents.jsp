@@ -29,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()
  <div id="popupFormDiv" >
 
  <input id="sname" name="sname" type="text" />
-<input value="查询" onclick="javascript:void(0)" type="button" id="cx" class="layui-btn layui-btn-warm layui-btn-small" />
+<input value="查询" onclick="search()" type="button" class="layui-btn layui-btn-warm layui-btn-small" />
 <button onclick="dc()" class="layui-btn layui-btn-warm layui-btn-small">导出excel</button>
 
 <table class="table table-bordered" id="mytb"  >
@@ -57,7 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()
 		<tr >
 			<td hidden>${stu.sid}</td>
 			<td>${stu.xuehao}</td>
-			<td><a onclick="update(${stu.sid})" href="#" >${stu.sname}</a></td>
+			<td><a onclick="update(${stu.sid})" href="javascript:void(0)" >${stu.sname}</a></td>
 
 			<td>${stu.sex}</td>
 			<c:if test="${utype=='管理员'}">
@@ -71,40 +71,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()
   </tbody>
   
 </table>  
-   <!-- 分页功能 start -->  
+  <!-- 分页功能 start -->  
    <div id="fenYeDiv" align="center">  
-             <font size="2">共 ${page.totalPageCount} 页</font> <font size="2">第  
-                ${page.pageNow} 页</font> <a href="../students/findAll.do">首页</a>  
-            <c:choose>  
-                <c:when test="${page.pageNow - 1 > 0}">  
-                    <a href="../students/findAll.do?pageNow=${page.pageNow - 1}">上一页</a>  
-                </c:when>  
-                <c:when test="${page.pageNow - 1 <= 0}">  
-                    <a href="../students/findAll.do?pageNow=1">上一页</a>  
-                </c:when>  
-            </c:choose>  
-            <c:choose>  
-                <c:when test="${page.totalPageCount==0}">  
-                    <a href="../students/findAll.do?pageNow=${page.pageNow}">下一页</a>  
-                </c:when>  
-                <c:when test="${page.pageNow + 1 < page.totalPageCount}">  
-                    <a href="../students/findAll.do?pageNow=${page.pageNow + 1}">下一页</a>  
-                </c:when>  
-                <c:when test="${page.pageNow + 1 >= page.totalPageCount}">  
-                    <a href="../students/findAll.do?pageNow=${page.totalPageCount}">下一页</a>  
-                </c:when>  
-            </c:choose>  
-            <c:choose>  
-                <c:when test="${page.totalPageCount==0}">  
-                    <a href="../students/findAll.do?pageNow=${page.pageNow}">尾页</a>  
-                </c:when>  
-                <c:otherwise>  
-                    <a href="../students/findAll.do?pageNow=${page.totalPageCount}">尾页</a>  
-                </c:otherwise>  
-            </c:choose>   
+             <font size="2">共<span id="pagecount"> ${page.totalPageCount} <span> 页</font> <font size="2">第  
+               <span id="pagenow" >${page.pageNow}</span>  页</font> 
+               <p id="requestpage" hidden></p>
+          <a id="firstPage" href="javascript:void(0)" onclick="firstPage()">首页</a>  
+          <a id="upPage" href="javascript:void(0)" onclick="upPage()">上一页</a>  
+          <a id="nextPage" href="javascript:void(0)" onclick="nextPage()">下一页</a>  
+         <a id="lastPage" href="javascript:void(0)" onclick="lastPage()">尾页</a>  
 
-
-        </div> 
+        </div>
+        
         <!-- 分页功能 End -->  
        
  </div> 
@@ -209,35 +187,120 @@ function add(){
 
 <!-- 查询异步交互 -->
 <script type="text/javascript">
-$(function() {
-	$('#cx').click(function() {
-	if(($("#sname").val()=="")||($("#sname").val()==null)){
-		return ;
+var pagenow=null;
+//首页
+function firstPage() {
+var page=1;
+  $('#requestpage').val(page);
+    search();
+}
+//上一页
+function upPage() {
+ var page = parseInt($('#pagenow').val()) - 1;
+    if (page <= 0) {
+        page = 1;
+    }
+    $('#requestpage').val(page);
+    search();
+}
+//下一页
+function nextPage() {
+    var page = parseInt($('#pagenow').val()) + 1;
+    
+    if (page >= parseInt($('#pagecount').val())) {
+        page = $('#pagecount').val();
+    }
+    if (page == 0) {
+        page = 1;
+    }
+    $('#requestpage').val(page);
+    search();
+}
+//尾页
+function lastPage() {
+var page=$('#lastPage').val();
+  if((page=="")||(page==null)){
+	page=null;
 	}
-	  $.get("../students/findStudents.do",{sname:$("#sname").val()}, function(result){
-			var jsonArray = $.parseJSON(result);
-				var html = "";
+	 $('#requestpage').val(page);
+    search();
+}
+
+
+//查询的ajax方法
+function search() {
+
+ 
+	
+
+    $.ajax({
+			type : "POST",
+			url : "../students/findStudents.do",
+			data : {sname:$("#sname").val(),
+				pageNow:$('#requestpage').val()
+			},
+		
+				dataType:'json',
+			  
+			error : function(data) {
+				alert("出错了！！");
+			},
+		
+			success : function (data) {
+			var jsonArray = $.parseJSON(data);
+					var html = "";
+					
+							
 				for (var temp in jsonArray) {
+					if(temp==(jsonArray.length-1)){
+
+					//共多少页
+					$("#lastPage").val(jsonArray[temp].totalPageCount);
+					$("#pagenow").val(jsonArray[temp].pageNow);
+					$("#pagecount").val(jsonArray[temp].totalPageCount);
+					
+					document.getElementById("pagecount").innerHTML = jsonArray[temp].totalPageCount;
+					document.getElementById("pagenow").innerHTML = jsonArray[temp].pageNow;
+
+					break;
+					}
+         	
 					html += '<tr ><td hidden>'+jsonArray[temp].sid+'</td>';
-					html += '<td>' + jsonArray[temp].xuehao + '</td><td>' + jsonArray[temp].sname + '</td><td>' + jsonArray[temp].sex + '</td>' ;
+					html += '<td>' + jsonArray[temp].xuehao + '</td><td><a onclick="update(\''+jsonArray[temp].sid+'\')" href="javascript:void(0)" >' + jsonArray[temp].sname + '</a></td><td>' + jsonArray[temp].sex + '</td>' ;
 					  <c:if test="${utype=='管理员'}">
 					html += '<td ><button onclick="deleteStudents(\''+jsonArray[temp].sid+'\')">  <i class="layui-icon" >&#xe640;</i></button></td>';
 					</c:if>
 					html+='</tr>';
-				}
-				alert( ${page.totalCount});
+
+				 
+				
 				document.getElementById("mytbtr").innerHTML = html;
 				
-  			
-  },"json");
 
-	
-	});
+		
+			}
+			}
 
-});
+
+		});
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 </script>
+
 
 <!-- 导出脚本 -->
 <script type="text/javascript">

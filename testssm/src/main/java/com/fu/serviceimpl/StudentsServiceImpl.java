@@ -2,15 +2,18 @@ package com.fu.serviceimpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -51,6 +54,9 @@ public class StudentsServiceImpl implements StudentsService {
 	@Override
 	public String findStudents(HttpServletRequest request,Model model,String sname) {
 		String pageNow = request.getParameter("pageNow");
+		if("".equals(pageNow)){
+			pageNow=null;
+		}
 
 		Page page = null;
 
@@ -60,16 +66,26 @@ public class StudentsServiceImpl implements StudentsService {
 
 		if (pageNow != null) {
 			page = new Page(totalCount, Integer.parseInt(pageNow));
+			page.setTotalPageCount(	page.getTotalPageCount());
+			
 			stu = this.sdao.findStudents(sname,page.getStartPos(), page.getPageSize());
 		} else {
 			page = new Page(totalCount, 1);
+			page.setTotalPageCount(	page.getTotalPageCount());
+		
 			stu = this.sdao.findStudents(sname,page.getStartPos(), page.getPageSize());
 		}
 
 		Gson gson=new Gson();
- 
-		request.setAttribute("page",page);
-		return gson.toJson(stu);
+		
+		 List l=new ArrayList();
+		 for(int i=0;i<stu.size();i++){
+			 l.add(stu.get(i));
+		 }
+
+		 l.add(page);
+	
+		return gson.toJson(l);
 	}
 //	 根据id查询指定学生方法(点点击某个学生查看或编译时)
 	@Override
@@ -96,15 +112,17 @@ public class StudentsServiceImpl implements StudentsService {
 
 		if (pageNow != null) {
 			page = new Page(totalCount, Integer.parseInt(pageNow));
+			page.setTotalPageCount(	page.getTotalPageCount());
 			stu = this.sdao.selectStudentsByPage(page.getStartPos(), page.getPageSize());
 		} else {
 			page = new Page(totalCount, 1);
+			page.setTotalPageCount(	page.getTotalPageCount());
 			stu = this.sdao.selectStudentsByPage(page.getStartPos(), page.getPageSize());
 		}
 
 		model.addAttribute("stu", stu);
-	
-		request.setAttribute("page", page);
+		request.setAttribute("page",page);
+ 
 		return stu;
 	}
 //excel导出
