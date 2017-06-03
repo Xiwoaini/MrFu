@@ -22,9 +22,11 @@
 		<a href="../file/down.do?background=2.jpg"
 			class="layui-btn layui-btn-normal">下载背景图片</a> <a
 			href="../file/down.do?background=music1.mp3"
-			class="layui-btn layui-btn-normal">下载背景音乐</a> <img
+			class="layui-btn layui-btn-normal">下载背景音乐</a> 
+			<!-- 外部虚拟路径 -->
+			<img
 			style="width: 100%;height: auto"
-			src="http://localhost:8250/uploadfiles/2.jpg">
+			src="http://localhost:8250/uploadfiles/2.jpg" />
 
 		<form id="uploadForm" enctype="multipart/form-data">
 			小兄弟有意见？发文档告诉小弟: <input type="file" name="file" id="file"

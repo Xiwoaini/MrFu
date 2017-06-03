@@ -103,7 +103,9 @@ public class StudentsServiceImpl implements StudentsService {
 	@Override
 	public List<Students> showStudentsByPage(HttpServletRequest request, Model model) {
 		String pageNow = request.getParameter("pageNow");
-
+		if("".equals(pageNow)){
+			pageNow=null;
+		}
 		Page page = null;
 
 		List<Students> stu = new ArrayList<Students>();

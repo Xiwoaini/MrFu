@@ -28,9 +28,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()
   <div class="col-md-6">
  <div id="popupFormDiv" >
 
- <input id="sname" name="sname" type="text" />
-<input value="查询" onclick="search()" type="button" class="layui-btn layui-btn-warm layui-btn-small" />
-<button onclick="dc()" class="layui-btn layui-btn-warm layui-btn-small">导出excel</button>
+ <input id="sname" name="sname" type="text" onchange="checkChange()" />
+<input value="查询"  onclick="search()" type="button" class="layui-btn layui-btn-warm layui-btn-small" />
+<button onclick="dc()"  class="layui-btn layui-btn-warm layui-btn-small">导出excel</button>
 
 <table class="table table-bordered" id="mytb"  >
   <colgroup>
@@ -146,56 +146,16 @@ function add(){
 	 
 }
 
-
 </script>
+<script type="text/javascript" src="<%=path %>/js/fenye/fenye.js"></script>
 
 <!-- 查询异步交互 -->
 <script type="text/javascript">
-var pagenow=null;
-//首页
-function firstPage() {
-var page=1;
-  $('#requestpage').val(page);
-    search();
-}
-//上一页
-function upPage() {
- var page = parseInt($('#pagenow').val()) - 1;
-    if (page <= 0) {
-        page = 1;
-    }
-    $('#requestpage').val(page);
-    search();
-}
-//下一页
-function nextPage() {
-    var page = parseInt($('#pagenow').val()) + 1;
-    
-    if (page >= parseInt($('#pagecount').val())) {
-        page = $('#pagecount').val();
-    }
-    if (page == 0) {
-        page = 1;
-    }
-    $('#requestpage').val(page);
-    search();
-}
-//尾页
-function lastPage() {
-var page=$('#lastPage').val();
-  if((page=="")||(page==null)){
-	page=null;
-	}
-	 $('#requestpage').val(page);
-    search();
-}
 
 
 //查询的ajax方法
 function search() {
 
- 
-	
 
     $.ajax({
 			type : "POST",

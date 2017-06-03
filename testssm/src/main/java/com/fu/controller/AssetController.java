@@ -33,7 +33,7 @@ public final class AssetController {
 		List<Asset> l=new ArrayList<Asset>();
 		l=aservice.selectAllAsset();
 		request.setAttribute("asset_list", l);
-
+		
 		return "jsp/Asset/showAsset";
 	}
 }

@@ -68,14 +68,11 @@ public final class StudentsController {
 		// 添加模糊查询,拼接字符串
 		String sname = request.getParameter("sname");
 		String json="";
-		if("".equals(sname)){
-			findALL(request,model,session);
-	
-		}else{
+
 			sname = "%" + sname + "%";
 			json=sservice.findStudents(request,model,sname);
 			
-		}
+
 		return json;
 		
 	}
