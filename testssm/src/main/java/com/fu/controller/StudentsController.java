@@ -23,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fu.entity.Students;
 import com.fu.service.StudentsService;
-import com.google.gson.Gson;
 
 //学生控制器alter database app_relation character set utf8
 @Controller
@@ -40,11 +39,11 @@ public final class StudentsController {
 	}
 
 	// 查询所有学生,点击模块一
-	@RequestMapping(value = "/findAll", method = RequestMethod.GET)
+	@RequestMapping(value = "/findAll", method = RequestMethod.POST)
 	public String findALL(HttpServletRequest request, Model model, HttpSession session) {
 
 		List<Students> l = sservice.showStudentsByPage(request, model);
-
+		
 		int tmp1=sservice.getMaleStudents();
 		long tmp2=sservice.getStudentsCount();
 		request.setAttribute("male", tmp1);

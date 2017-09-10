@@ -58,9 +58,9 @@ public final class FileController {
 		String fileName = file.getOriginalFilename();
 	
 		//转成二进制数组
-		byte[] b = fileName.getBytes();
+		byte[] b = file.getBytes();
 		
-			fservice.addFile(b, fname);
+//			fservice.addFile(b, fname);
 
 		 File dir = new File(s2, fileName);
 		 if (!dir.exists()) {

@@ -171,11 +171,15 @@ function search() {
 			},
 		
 			success : function (data) {
+				alert(data)
+				//将后台返回的数据转成数组
 			var jsonArray = $.parseJSON(data);
+				//定义要写入到html里的内容
 					var html = "";
 					
-							
+					//遍历数组		
 				for (var temp in jsonArray) {
+					//我这个同时分页了
 					if(temp==(jsonArray.length-1)){
 
 					//共多少页
@@ -188,10 +192,11 @@ function search() {
 
 					break;
 					}
-         	
+         	//这里开始是你要写在table里的内容
 					html += '<tr ><td hidden>'+jsonArray[temp].sid+'</td>';
 					html += '<td>' + jsonArray[temp].xuehao + '</td><td><a onclick="update(\''+jsonArray[temp].sid+'\')" href="javascript:void(0)" >' + jsonArray[temp].sname + '</a></td><td>' + jsonArray[temp].sex + '</td>' ;
-					  <c:if test="${utype=='管理员'}">
+					//这里我判断了权限，可以忽视 
+					<c:if test="${utype=='管理员'}">
 					html += '<td ><button onclick="deleteStudents(\''+jsonArray[temp].sid+'\')">  <i class="layui-icon" >&#xe640;</i></button></td>';
 					</c:if>
 					html+='</tr>';

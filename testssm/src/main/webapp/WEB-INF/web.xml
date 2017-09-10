@@ -53,31 +53,42 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>classpath:spring-mvc.xml</param-value>
 		</init-param>
+		<!-- 容器启动就加载 -->
 		<load-on-startup>1</load-on-startup>
 		<async-supported>true</async-supported>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>SpringMVC</servlet-name>
-		<!-- 此处可以可以配置成*.do，对应struts的后缀习惯 -->
+		<!-- 过滤所有以.do结尾的请求 -->
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
+	
+	
+<!-- 	<servlet>  
+    <servlet-name>Kaptcha</servlet-name>  
+    <servlet-class>com.google.code.kaptcha.servlet.KaptchaServlet</servlet-class>  
+</servlet>  
+<servlet-mapping>  
+    <servlet-name>Kaptcha</servlet-name>  
+    <url-pattern>/kaptcha.jpg</url-pattern> 
+</servlet-mapping> -->
 
-	<!-- 错误跳转页面 -->
+	<!-- 错误跳转页面,还没做完,我还得看错误信息呢
 	<error-page>
-		<!-- 路径不正确 -->
+		 路径不正确
 		<error-code>404</error-code>
 		<location>/WEB-INF/errorpage/404.jsp</location>
 	</error-page>
 	<error-page>
-		<!-- 没有访问权限，访问被禁止 -->
+		 没有访问权限，访问被禁止 
 		<error-code>405</error-code>
 		<location>/WEB-INF/errorpage/405.jsp</location>
 	</error-page>
 	<error-page>
-		<!-- 内部错误 -->
+		 服务器内部错误 
 		<error-code>500</error-code>
 		<location>/WEB-INF/errorpage/500.jsp</location>
 	</error-page>
-
+ 	-->
 
 </web-app>

@@ -15,6 +15,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.ui.Model;
 
 import com.fu.dao.StudentsDAO;
@@ -58,6 +59,8 @@ public class StudentsServiceImpl implements StudentsService {
 			pageNow=null;
 		}
 
+		//事务回滚
+//		TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		Page page = null;
 
 		List<Students> stu = new ArrayList<Students>();
@@ -99,6 +102,11 @@ public class StudentsServiceImpl implements StudentsService {
 
 		return sdao.modifyStudents(stu);
 	}
+ 
+		public boolean mt(Students stu) {
+
+			return sdao.modifyStudents(stu);
+		}
 //	 分页
 	@Override
 	public List<Students> showStudentsByPage(HttpServletRequest request, Model model) {

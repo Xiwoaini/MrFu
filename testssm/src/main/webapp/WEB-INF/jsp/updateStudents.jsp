@@ -42,15 +42,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()
 </script>
  <!-- 判断select的性别 -->
  <script type="text/javascript">  
+ //获取当前角色性别
     var selectedValue = '${stu.sex}';  
        
-    function changeSelected(){  
+    function changeSelected(){ 
+    	
         jsSelectItemByValue(document.getElementById("mySelect"),selectedValue);  
     }  
-       
-    function jsSelectItemByValue(objSelect,objItemText) {  
+       //参数:选择列表,当前角色性别
+        function jsSelectItemByValue(objSelect,objItemText) {  
+    	   //遍历选择框
         for(var i=0;i<objSelect.options.length;i++) {  
+        	//如果下拉集合某个值等于当前角色性别
             if(objSelect.options[i].value == objItemText) {  
+            	//把这个值默认选中
                 objSelect.options[i].selected = true;  
                 break;  
             }  

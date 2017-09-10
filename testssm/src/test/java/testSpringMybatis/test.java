@@ -32,5 +32,13 @@ public class test {
 		    }
 		    
 		  }
+	  //测试事务回滚
+	  @Test
+	  public void test2() {
+	
+		  userService.zhuCe("fu", "1", "1", "111", "普通");
+		   
+		    
+		  }
 
 }

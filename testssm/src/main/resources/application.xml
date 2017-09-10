@@ -14,19 +14,44 @@ http://www.springframework.org/schema/tx
 http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 
+<!-- aop注解设置，开启aop，利用的是aspectjrt.jar包 -->
 <aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
 
  
 
-  <!--组件扫描 -->
-  <context:component-scan base-package="com.fu" />
+  <!-- 项目后台组件扫描 -->
+  <context:component-scan base-package="com.fu" >
+  <!-- 不扫控制器 -->
+  <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/> 
+  </context:component-scan>
+  <!-- 注解事务@Transactional -->
+ <tx:annotation-driven transaction-manager="transactionManager" />
   
   <!-- 引入数据库配置文件 -->
   <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <property name="location" value="classpath:jdbc.properties" />
   </bean>
- 
- <!--配置dbcp连接池-->
+  
+    <bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">  
+        <property name="config">  
+            <bean class="com.google.code.kaptcha.util.Config">  
+                <constructor-arg>  
+                    <props>  
+                        <prop key="kaptcha.border">no</prop>  
+                        <prop key="kaptcha.border.color">105,179,90</prop>  
+                        <prop key="kaptcha.textproducer.font.color">blue</prop>  
+                        <prop key="kaptcha.image.width">250</prop>  
+                        <prop key="kaptcha.textproducer.font.size">80</prop>  
+                        <prop key="kaptcha.image.height">90</prop>  
+                        <prop key="kaptcha.session.key">code</prop>  
+                        <prop key="kaptcha.textproducer.char.length">4</prop>  
+                        <prop key="kaptcha.textproducer.font.names">宋体,楷体,微软雅黑</prop>  
+                    </props>  
+                </constructor-arg>  
+            </bean>  
+        </property>  
+    </bean>
+ <!-- 配置dbcp连接池-->
   <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
     destroy-method="close">
     <property name="driverClassName" value="${driver}" />
@@ -58,13 +83,15 @@ http://www.springframework.org/schema/tx/spring-tx.xsd">
     <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
   </bean>
  
-  <!--事务管理 -->
+  <!--配置事务管理 -->
   <bean id="transactionManager"
     class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
     <property name="dataSource" ref="dataSource" />
   </bean>
  
+ <!-- 指定会发生切面插入的类 -->
  <bean id="jiaFa" class="com.fu.controller.JiaFa"></bean>
- <bean id="jianFa" class="com.fu.controller.JianFa"></bean>
+ 
+ <!-- 定义aop要插入的方法,以及内容 -->
   <bean id="aOPService" class="com.fu.service.AOPService"></bean> 
 </beans>

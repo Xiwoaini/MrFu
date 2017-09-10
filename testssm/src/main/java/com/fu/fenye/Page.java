@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class Page implements Serializable {
 	
 	private static final long serialVersionUID = -3198048449643774660L;  
-	  
+	
     private int pageNow = 1; // 当前页数  
   
     private int pageSize = 4; // 每页显示记录的条数  

@@ -26,4 +26,5 @@
    <select id="findEmpByName"   resultMap="BaseResultMap"  >
          select e.ename,e.sex,e.age,e.sal,e.birthday from emp_t e where e.eno=#{eno} and e.ename like #{ename} limit #{startPos},#{pageSize} 
     </select>
+    
 </mapper>

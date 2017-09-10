@@ -1,5 +1,7 @@
 package com.fu.controller;
 
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -112,6 +114,7 @@ public String toIndex(HttpServletRequest request,HttpSession session, HttpServle
 		 String userkey="userkey";
 		 	user=this.userService.login(username,password,userkey);
 		  if(user!=null){
+			
 			  if(user.getUtype().equals("管理员")){
 				  session.setAttribute("utype", "管理员"); 
 				  session.setAttribute("username", "管理员,"+user.getUsername());  

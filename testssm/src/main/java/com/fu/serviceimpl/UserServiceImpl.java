@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.fu.dao.UsersDAO;
 import com.fu.entity.Users;
@@ -34,9 +36,13 @@ public class UserServiceImpl implements UserService {
 
 
 	//用户注册业务层实现方法
+//	@Transactional
 	@Override
 	public boolean zhuCe(String user,String passwd,String age,String userkey,String utype) {
-		
+	
+//		this.userDao.zhuCe(user, passwd, age,userkey,utype);
+//		System.out.println("注册");
+//		TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		return this.userDao.zhuCe(user, passwd, age,userkey,utype);
 	}
 
